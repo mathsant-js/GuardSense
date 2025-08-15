@@ -1,0 +1,1 @@
+### Pasta que ficará a comunicação HTTP/WebSocket com o ESP
