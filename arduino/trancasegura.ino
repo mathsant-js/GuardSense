@@ -29,10 +29,14 @@ Keypad tecladosenha = Keypad(makeKeymap(matriz_teclado), pinosLinhas, pinosColun
 // definição do pino do sensor de vibração
 int vibracao = 11;
 
+// definição do pino da tranca solenoide
+int tranca = A5;
+
 void setup()
 {
   // definindo o pino do sensor de vibração, inicializando o monitor serial, e iniciando o display lcd
   pinMode(vibracao, INPUT);
+  pinMode(tranca, OUTPUT);
   Serial.begin(9600);
   lcd.init();
   lcd.backlight();
@@ -72,9 +76,14 @@ void loop()
   // conferir e exibir se a senha digitada estava certa ou errada
   if (digitada == senha) {
     lcd.print("Senha Correta");
+    digitalWrite(tranca, HIGH);
+    delay(5000);
+    digitalWrite(tranca, LOW);
   } else {
     lcd.print("Senha Incorreta");
+    digitalWrite(tranca, LOW);
   }
+  // ainda não há certeza de qual abre ou qual fecha entre o HIGH e LOW, isso será verificado ao testar fisicamente
   
   delay(3000);
   // limpa o display

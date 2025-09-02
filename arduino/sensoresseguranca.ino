@@ -1,9 +1,9 @@
 // TCC Etec ZL - 3º Novotec Desenvolvimento de Sistemas Manhã - Henrique Macedo, Lucas Rosa, Matheus Santana
 
 // definição dos pinos para os sensor - sensor de vazamento de gás, detector de presença/movimento e sensor de alagamento
-int sensorgas = 14;
+int sensorgas = 15;
 int presenca = 2;
-int sensoragua = 15;
+int sensoragua = 14;
 
 void setup() {
   // inicializando o monitor serial e definindo pinos como input
