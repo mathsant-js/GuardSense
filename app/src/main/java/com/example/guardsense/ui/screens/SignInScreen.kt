@@ -1,0 +1,264 @@
+package com.example.guardsense.ui
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.guardsense.R
+
+val ralewayFont = FontFamily(
+    Font(R.font.raleway_semibold, FontWeight.SemiBold)
+)
+@Composable
+fun BackgroundContainer(content: @Composable BoxScope.() -> Unit) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+            brush = Brush.verticalGradient(
+                    listOf(Color(0xFF0097B2), Color(0xFF00404C))
+             )
+            ),
+        contentAlignment = Alignment.Center
+    ) { content()
+    }
+}
+@Composable
+fun Register0(navController: NavController) {
+    BackgroundContainer {
+      Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier.padding(horizontal = 40.dp)
+        ) {
+            Image(
+            painter = painterResource(id = R.drawable.ic_logo),
+            contentDescription = "Logo",
+             modifier = Modifier.size(160.dp).padding(bottom = 20.dp)
+            )
+
+            Button(
+            onClick = { navController.navigate("register1") },
+            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0097B2)),
+            modifier = Modifier
+                  .fillMaxWidth()
+                  .height(55.dp),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = "Continuar com E-mail",
+                        color = Color.White,
+                        fontFamily = ralewayFont,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 16.sp,
+                        modifier = Modifier.weight(1f)
+                    )
+                }
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Divider(
+                    color = Color.White.copy(alpha = 1f),
+                    modifier = Modifier.weight(1f).height(1.dp)
+                )
+                Text(
+                    text = "Ou",
+                    color = Color.White,
+                    fontFamily = ralewayFont,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 16.sp,
+                    modifier = Modifier.padding(horizontal = 10.dp)
+                )
+                Divider(
+                    color = Color.White.copy(alpha = 1f),
+                    modifier = Modifier.weight(1f).height(1.dp)
+                )
+            }
+
+            Button(
+                onClick = { /* Goole */ },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(55.dp),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_google),
+                        contentDescription = "Google",
+                        modifier = Modifier.size(24.dp)
+                    )
+                    Text(
+                        text = "Continuar com Google",
+                        color = Color.Black,
+                        fontFamily = ralewayFont,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 16.sp,
+                        modifier = Modifier.weight(1f).padding(start = 8.dp)
+                    )
+                }
+            }
+            Button(
+                onClick = { /* Apple */ },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(55.dp),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_apple),
+                        contentDescription = "Apple",
+                        modifier = Modifier.size(24.dp)
+                    )
+                    Text(
+                        text = "Continuar com Apple",
+                        color = Color.Black,
+                        fontFamily = ralewayFont,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 16.sp,
+                        modifier = Modifier.weight(1f).padding(start = 8.dp)
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+fun Register1(navController: NavController) {
+    var name by remember { mutableStateOf("") }
+    var cpf by remember { mutableStateOf("") }
+    var endereco by remember { mutableStateOf("") }
+    var telefone by remember { mutableStateOf("") }
+
+    BackgroundContainer {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            modifier = Modifier.fillMaxWidth(0.8f)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_logo),
+                contentDescription = "Logo",
+                modifier = Modifier.size(140.dp).padding(bottom = 30.dp)
+            )
+
+            OutlinedTextField(
+                value = name,
+                onValueChange = { name = it },
+                label = {
+                    Text("Nome", fontFamily = ralewayFont, fontWeight = FontWeight.SemiBold)
+                },
+                modifier = Modifier.fillMaxWidth(),
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White,
+                    focusedTextColor = Color.Black,
+                    unfocusedTextColor = Color.Black,
+                    focusedLabelColor = Color(0xFF0097B2),
+                    unfocusedLabelColor = Color.Gray,
+                    focusedIndicatorColor = Color(0xFF0097B2),
+                    unfocusedIndicatorColor = Color.Gray
+                )
+            )
+
+            OutlinedTextField(
+                value = cpf,
+                onValueChange = { cpf = it },
+                label = {
+                    Text("CPF", fontFamily = ralewayFont, fontWeight = FontWeight.SemiBold)
+                },
+                modifier = Modifier.fillMaxWidth(),
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White,
+                    focusedTextColor = Color.Black,
+                    unfocusedTextColor = Color.Black,
+                    focusedLabelColor = Color(0xFF0097B2),
+                    unfocusedLabelColor = Color.Gray,
+                    focusedIndicatorColor = Color(0xFF0097B2),
+                    unfocusedIndicatorColor = Color.Gray
+                )
+            )
+
+            OutlinedTextField(
+                value = endereco,
+                onValueChange = { endereco = it },
+                label = {
+                    Text("Endereço", fontFamily = ralewayFont, fontWeight = FontWeight.SemiBold)
+                },
+                modifier = Modifier.fillMaxWidth(),
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White,
+                    focusedTextColor = Color.Black,
+                    unfocusedTextColor = Color.Black,
+                    focusedLabelColor = Color(0xFF0097B2),
+                    unfocusedLabelColor = Color.Gray,
+                    focusedIndicatorColor = Color(0xFF0097B2),
+                    unfocusedIndicatorColor = Color.Gray
+                )
+            )
+
+            OutlinedTextField(
+                value = telefone,
+                onValueChange = { telefone = it },
+                label = {
+                    Text("Telefone", fontFamily = ralewayFont, fontWeight = FontWeight.SemiBold)
+                },
+                modifier = Modifier.fillMaxWidth(),
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = Color.White,
+                    unfocusedContainerColor = Color.White,
+                    focusedTextColor = Color.Black,
+                    unfocusedTextColor = Color.Black,
+                    focusedLabelColor = Color(0xFF0097B2),
+                    unfocusedLabelColor = Color.Gray,
+                    focusedIndicatorColor = Color(0xFF0097B2),
+                    unfocusedIndicatorColor = Color.Gray
+                )
+            )
+
+            Button(
+                onClick = { navController.navigate("register2") },
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0097B2)),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(55.dp),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Text(
+                    text = "Próximo",
+                    color = Color.White,
+                    fontFamily = ralewayFont,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 18.sp
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun Register2(navController: NavController) {
+
+}
