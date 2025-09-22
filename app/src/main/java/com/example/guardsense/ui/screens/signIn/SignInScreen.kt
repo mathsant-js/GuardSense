@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,6 +20,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.guardsense.R
 import com.example.guardsense.ui.navigation.Routes
+import com.example.guardsense.ui.theme.DarkBlue
+import com.example.guardsense.ui.theme.PrimaryBlue
 
 val ralewayFont = FontFamily(
     Font(R.font.raleway_semibold, FontWeight.SemiBold)
@@ -30,7 +33,7 @@ fun BackgroundContainer(content: @Composable BoxScope.() -> Unit) {
             .fillMaxSize()
             .background(
             brush = Brush.verticalGradient(
-                    listOf(Color(0xFF0097B2), Color(0xFF00404C))
+                    listOf(PrimaryBlue, DarkBlue)
              )
             ),
         contentAlignment = Alignment.Center
@@ -53,7 +56,7 @@ fun SignInScreen(navController: NavController) {
 
             Button(
             onClick = { navController.navigate(Routes.Register0) },
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0097B2)),
+            colors = ButtonDefaults.buttonColors(containerColor = PrimaryBlue),
             modifier = Modifier
                   .fillMaxWidth()
                   .height(55.dp),
@@ -74,9 +77,9 @@ fun SignInScreen(navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Divider(
-                    color = Color.White.copy(alpha = 1f),
-                    modifier = Modifier.weight(1f).height(1.dp)
+                HorizontalDivider(
+                    modifier = Modifier.weight(1f).height(1.dp),
+                    thickness = DividerDefaults.Thickness, color = Color.White.copy(alpha = 1f)
                 )
                 Text(
                     text = "Ou",
@@ -86,9 +89,9 @@ fun SignInScreen(navController: NavController) {
                     fontSize = 16.sp,
                     modifier = Modifier.padding(horizontal = 10.dp)
                 )
-                Divider(
-                    color = Color.White.copy(alpha = 1f),
-                    modifier = Modifier.weight(1f).height(1.dp)
+                HorizontalDivider(
+                    modifier = Modifier.weight(1f).height(1.dp),
+                    thickness = DividerDefaults.Thickness, color = Color.White.copy(alpha = 1f)
                 )
             }
 

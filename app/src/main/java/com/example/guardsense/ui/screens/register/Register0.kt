@@ -28,7 +28,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.guardsense.R
 import com.example.guardsense.ui.BackgroundContainer
+import com.example.guardsense.ui.navigation.Routes
 import com.example.guardsense.ui.ralewayFont
+import com.example.guardsense.ui.theme.PrimaryBlue
 
 @Composable
 fun Register0(navController: NavController) {
@@ -61,9 +63,9 @@ fun Register0(navController: NavController) {
                     unfocusedContainerColor = Color.White,
                     focusedTextColor = Color.Black,
                     unfocusedTextColor = Color.Black,
-                    focusedLabelColor = Color(0xFF0097B2),
+                    focusedLabelColor = PrimaryBlue,
                     unfocusedLabelColor = Color.Gray,
-                    focusedIndicatorColor = Color(0xFF0097B2),
+                    focusedIndicatorColor = PrimaryBlue,
                     unfocusedIndicatorColor = Color.Gray
                 )
             )
@@ -80,9 +82,9 @@ fun Register0(navController: NavController) {
                     unfocusedContainerColor = Color.White,
                     focusedTextColor = Color.Black,
                     unfocusedTextColor = Color.Black,
-                    focusedLabelColor = Color(0xFF0097B2),
+                    focusedLabelColor = PrimaryBlue,
                     unfocusedLabelColor = Color.Gray,
-                    focusedIndicatorColor = Color(0xFF0097B2),
+                    focusedIndicatorColor = PrimaryBlue,
                     unfocusedIndicatorColor = Color.Gray
                 )
             )
@@ -99,9 +101,9 @@ fun Register0(navController: NavController) {
                     unfocusedContainerColor = Color.White,
                     focusedTextColor = Color.Black,
                     unfocusedTextColor = Color.Black,
-                    focusedLabelColor = Color(0xFF0097B2),
+                    focusedLabelColor = PrimaryBlue,
                     unfocusedLabelColor = Color.Gray,
-                    focusedIndicatorColor = Color(0xFF0097B2),
+                    focusedIndicatorColor = PrimaryBlue,
                     unfocusedIndicatorColor = Color.Gray
                 )
             )
@@ -118,16 +120,16 @@ fun Register0(navController: NavController) {
                     unfocusedContainerColor = Color.White,
                     focusedTextColor = Color.Black,
                     unfocusedTextColor = Color.Black,
-                    focusedLabelColor = Color(0xFF0097B2),
+                    focusedLabelColor = PrimaryBlue,
                     unfocusedLabelColor = Color.Gray,
-                    focusedIndicatorColor = Color(0xFF0097B2),
+                    focusedIndicatorColor = PrimaryBlue,
                     unfocusedIndicatorColor = Color.Gray
                 )
             )
 
             Button(
-                onClick = { navController.navigate("register2") },
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF0097B2)),
+                onClick = { navController.navigate(Routes.Register2 /* A tela Register 2 não existe ainda, crie ela antes de apertar o botão */) },
+                colors = ButtonDefaults.buttonColors(containerColor = PrimaryBlue),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(55.dp),
