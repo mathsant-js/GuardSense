@@ -55,7 +55,7 @@ fun SignInScreen(navController: NavController) {
             )
 
             Button(
-            onClick = { navController.navigate(Routes.Register0) },
+            onClick = { navController.navigate(Routes.Register1) },
             colors = ButtonDefaults.buttonColors(containerColor = PrimaryBlue),
             modifier = Modifier
                   .fillMaxWidth()

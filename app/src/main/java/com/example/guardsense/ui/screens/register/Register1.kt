@@ -33,7 +33,7 @@ import com.example.guardsense.ui.ralewayFont
 import com.example.guardsense.ui.theme.PrimaryBlue
 
 @Composable
-fun Register0(navController: NavController) {
+fun Register1(navController: NavController) {
     var name by remember { mutableStateOf("") }
     var cpf by remember { mutableStateOf("") }
     var endereco by remember { mutableStateOf("") }

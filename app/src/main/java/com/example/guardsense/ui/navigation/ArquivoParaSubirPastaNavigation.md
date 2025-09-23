@@ -1,1 +1,0 @@
-### Pasta onde ficará o controle das navegações sem ter que ficar repetindo o mesmo código
