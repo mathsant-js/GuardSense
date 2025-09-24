@@ -32,19 +32,19 @@ fun Register1(navController: NavController) {
             Logo(140, 30)
 
             OutlinedTextFieldCommom(
-                "Nome", name.value, { name.value = it }
+                "Nome", type = "text", name.value, { name.value = it }
             )
 
             OutlinedTextFieldCommom(
-                "CPF", cpf.value, { cpf.value = it }
+                "CPF", type = "number", cpf.value, { cpf.value = it }
             )
 
             OutlinedTextFieldCommom(
-                "Endereço", endereco.value, { endereco.value = it }
+                "Endereço", type = "text", endereco.value, { endereco.value = it }
             )
 
             OutlinedTextFieldCommom(
-                "Telefone", telefone.value, { telefone.value = it }
+                "Telefone", type = "numberlasttextfield",  telefone.value, { telefone.value = it }
             )
 
             ButtonNavigation("Próximo", navController, Routes.Register2)
