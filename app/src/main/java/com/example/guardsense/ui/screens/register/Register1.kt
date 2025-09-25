@@ -17,7 +17,7 @@ import com.example.guardsense.ui.components.OutlinedTextFieldCommom
 import com.example.guardsense.ui.navigation.Routes
 
 @Composable
-fun Register1(navController: NavController) {
+fun Register1() {
     val name = remember { mutableStateOf("") }
     val cpf = remember { mutableStateOf("") }
     val endereco = remember { mutableStateOf("") }
@@ -47,7 +47,7 @@ fun Register1(navController: NavController) {
                 "Telefone", type = "numberlasttextfield",  telefone.value, { telefone.value = it }
             )
 
-            ButtonNavigation("Próximo", navController, Routes.Register2)
+            ButtonNavigation("Próximo", Routes.Register2)
         }
     }
 }

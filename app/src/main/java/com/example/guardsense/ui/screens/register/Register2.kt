@@ -39,7 +39,7 @@ import com.example.guardsense.ui.theme.PrimaryBlue
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Register2(navController: NavController) {
+fun Register2() {
     val email = remember { mutableStateOf("") }
     val senha = remember { mutableStateOf("") }
 
@@ -72,5 +72,5 @@ fun Register2(navController: NavController) {
 @Preview
 @Composable
 fun Register2Preview() {
-    Register2(navController = rememberNavController())
+    Register2()
 }

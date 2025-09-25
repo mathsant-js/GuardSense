@@ -18,10 +18,10 @@ fun AppNavGraph(navController: NavHostController) {
             SignInScreen(navController)
         }
         composable(Routes.Register1) {
-            Register1(navController)
+            Register1()
         }
         composable(Routes.Register2) {
-            Register2(navController)
+            Register2()
         }
         composable(Routes.Register3) {
             // Tela Register #3
