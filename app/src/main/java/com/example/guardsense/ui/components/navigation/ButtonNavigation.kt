@@ -1,4 +1,4 @@
-package com.example.guardsense.ui.components
+package com.example.guardsense.ui.components.navigation
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -13,6 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.guardsense.ui.ralewayFont
 import com.example.guardsense.ui.theme.PrimaryBlue
 

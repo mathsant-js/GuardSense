@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.guardsense.ui.BackgroundContainer
-import com.example.guardsense.ui.components.ButtonNavigation
+import com.example.guardsense.ui.components.navigation.ButtonNavigation
 import com.example.guardsense.ui.components.Logo
 import com.example.guardsense.ui.components.OutlinedTextFieldCommom
 import com.example.guardsense.ui.navigation.Routes

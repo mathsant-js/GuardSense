@@ -23,12 +23,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.guardsense.ui.BackgroundContainer
 import com.example.guardsense.ui.components.Logo
 import com.example.guardsense.ui.components.OutlinedTextFieldCommom
+import com.example.guardsense.ui.components.navigation.ExtendedFloatingActionButtonCommon
+import com.example.guardsense.ui.components.navigation.ExtendedFloatingActionButtonIconRight
 import com.example.guardsense.ui.navigation.Routes
 import com.example.guardsense.ui.ralewayFont
 import com.example.guardsense.ui.theme.PrimaryBlue
@@ -57,53 +61,16 @@ fun Register2(navController: NavController) {
                     .padding(top = 8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                ExtendedFloatingActionButton(
-                    onClick = { navController.popBackStack() },
-                    containerColor = Color.White,
-                    icon = {
-                        Icon(
-                            Icons.AutoMirrored.Filled.ArrowBack,
-                            "Botão para voltar",
-                            tint = PrimaryBlue
-                        )
-                    },
-                    text = {
-                        Text(
-                            text = "Voltar",
-                            color = PrimaryBlue,
-                            fontFamily = ralewayFont,
-                            fontWeight = FontWeight.SemiBold,
-                            fontSize = 18.sp
-                        )
-                    },
-                    modifier = Modifier
-                        .width(150.dp)
-                        .height(50.dp),
-                    shape = RoundedCornerShape(12.dp)
-                )
-                ExtendedFloatingActionButton(
-                    onClick = { navController.navigate(Routes.Register3) },
-                    containerColor = PrimaryBlue,
-                    icon = {},
-                    text = {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(
-                                text = "Próximo",
-                                color = Color.White,
-                                fontFamily = ralewayFont,
-                                fontWeight = FontWeight.SemiBold,
-                                fontSize = 18.sp
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "Botão para avançar", tint = Color.White)
-                        }
-                    },
-                    modifier = Modifier
-                        .width(150.dp)
-                        .height(50.dp),
-                    shape = RoundedCornerShape(12.dp)
-                )
+                ExtendedFloatingActionButtonCommon("Voltar", "Botão para voltar", Color.White, PrimaryBlue)
+
+                ExtendedFloatingActionButtonIconRight("Próximo", "Botão para avançar", PrimaryBlue, Color.White, Routes.Register3)
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun Register2Preview() {
+    Register2(navController = rememberNavController())
 }
