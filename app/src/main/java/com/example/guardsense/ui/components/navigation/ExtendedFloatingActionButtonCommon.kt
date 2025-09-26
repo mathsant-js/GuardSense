@@ -1,4 +1,4 @@
-package com.example.guardsense.ui.components
+package com.example.guardsense.ui.components.navigation
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -18,15 +18,15 @@ import androidx.navigation.NavController
 import com.example.guardsense.ui.ralewayFont
 
 @Composable
-fun ExtendedFloatingActionButtonCommon(text: String, altText: String, color: Color, textColor: Color, navController: NavController) {
+fun ExtendedFloatingActionButtonCommon(text: String, altText: String, color: Color, textColor: Color, navController: NavController,) {
     ExtendedFloatingActionButton(
-        onClick = {  },
+        onClick = { navController.popBackStack() },
         containerColor = color,
         icon = {
             Icon(
                 Icons.AutoMirrored.Filled.ArrowBack,
                 altText,
-                tint = color
+                tint = textColor
             )
         },
         text = {

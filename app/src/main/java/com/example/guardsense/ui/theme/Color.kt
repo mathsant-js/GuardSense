@@ -12,8 +12,6 @@ val Orange = Color(0XFFC76B0A)
 
 val BorderGray = Color(0xFFE0E0E0)
 val Black = Color(0xFF000000)
-val BackgroundWhite = Color(0xFFF5F5F5)
-
 val GrayLight = Color(0xFFCCCCCC)
 val TextGray = Color(0xFF666666)
 val TextDark = Color(0xFF333333)

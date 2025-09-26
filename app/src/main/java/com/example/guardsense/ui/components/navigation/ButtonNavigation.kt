@@ -1,4 +1,4 @@
-package com.example.guardsense.ui.components
+package com.example.guardsense.ui.components.navigation
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
