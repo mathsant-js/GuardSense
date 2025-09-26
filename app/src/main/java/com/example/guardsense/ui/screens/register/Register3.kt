@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.guardsense.ui.BackgroundContainer
 import com.example.guardsense.ui.components.Logo
 import com.example.guardsense.ui.components.navigation.TextButtonBack
@@ -34,7 +35,7 @@ import com.example.guardsense.ui.theme.LightBlue
 import com.example.guardsense.ui.theme.LittleDarkBlue
 
 @Composable
-fun Register3() {
+fun Register3(navController: NavController) {
     BackgroundContainer {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -46,7 +47,7 @@ fun Register3() {
                 horizontalArrangement = Arrangement.Start,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                TextButtonBack("Voltar", Color.White)
+                TextButtonBack("Voltar", Color.White, navController)
             }
             PlanoDeluxeCard()
             Spacer(Modifier.padding(5.dp))

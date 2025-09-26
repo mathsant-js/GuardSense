@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.guardsense.ui.BackgroundContainer
 import com.example.guardsense.ui.components.Logo
 import com.example.guardsense.ui.components.OutlinedTextFieldCommom
@@ -23,7 +24,7 @@ import com.example.guardsense.ui.theme.PrimaryBlue
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Register2() {
+fun Register2(navController: NavController) {
     val email = remember { mutableStateOf("") }
     val senha = remember { mutableStateOf("") }
 
@@ -45,9 +46,9 @@ fun Register2() {
                     .padding(top = 8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                ExtendedFloatingActionButtonCommon("Voltar", "Botão para voltar", Color.White, PrimaryBlue)
+                ExtendedFloatingActionButtonCommon("Voltar", "Botão para voltar", Color.White, PrimaryBlue, navController)
 
-                ExtendedFloatingActionButtonIconRight("Próximo", "Botão para avançar", PrimaryBlue, Color.White, Routes.Register3)
+                ExtendedFloatingActionButtonIconRight("Próximo", "Botão para avançar", PrimaryBlue, Color.White, navController, Routes.Register3)
             }
         }
     }

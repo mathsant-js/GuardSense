@@ -15,12 +15,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.guardsense.ui.ralewayFont
 
 @Composable
-fun ExtendedFloatingActionButtonCommon(text: String, altText: String, color: Color, textColor: Color) {
-    val navController : NavController = rememberNavController()
+fun ExtendedFloatingActionButtonCommon(text: String, altText: String, color: Color, textColor: Color, navController: NavController,) {
     ExtendedFloatingActionButton(
         onClick = { navController.popBackStack() },
         containerColor = color,

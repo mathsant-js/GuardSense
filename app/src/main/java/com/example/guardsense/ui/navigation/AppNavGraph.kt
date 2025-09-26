@@ -19,13 +19,13 @@ fun AppNavGraph(navController: NavHostController) {
             SignInScreen(navController)
         }
         composable(Routes.Register1) {
-            Register1()
+            Register1(navController)
         }
         composable(Routes.Register2) {
-            Register2()
+            Register2(navController)
         }
         composable(Routes.Register3) {
-            Register3()
+            Register3(navController)
         }
         composable(Routes.Dashboard) {
             // Tela de Dashboard

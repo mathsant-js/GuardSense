@@ -13,13 +13,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.guardsense.ui.ralewayFont
 import com.example.guardsense.ui.theme.PrimaryBlue
 
 @Composable
-fun ButtonNavigation(textButton: String, route: String) {
-    val navController: NavController = rememberNavController()
+fun ButtonNavigation(textButton: String, navController: NavController, route: String) {
     Button(
         onClick = { navController.navigate(route) },
         colors = ButtonDefaults.buttonColors(containerColor = PrimaryBlue),
