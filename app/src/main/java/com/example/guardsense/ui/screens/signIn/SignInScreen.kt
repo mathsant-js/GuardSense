@@ -130,11 +130,11 @@ fun SignInScreen(navController: NavController) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_apple),
-                        contentDescription = "Apple",
+                        contentDescription = "Microsoft",
                         modifier = Modifier.size(24.dp)
                     )
                     Text(
-                        text = "Continuar com Apple",
+                        text = "Continuar com Microsoft",
                         color = Color.Black,
                         fontFamily = ralewayFont,
                         fontWeight = FontWeight.SemiBold,

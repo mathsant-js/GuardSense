@@ -1,3 +1,4 @@
+
 package com.example.guardsense.ui.navigation
 
 import androidx.compose.runtime.Composable
@@ -7,6 +8,7 @@ import androidx.navigation.compose.composable
 import com.example.guardsense.ui.SignInScreen
 import com.example.guardsense.ui.screens.register.Register1
 import com.example.guardsense.ui.screens.register.Register2
+import com.example.guardsense.ui.screens.register.Register3
 
 @Composable
 fun AppNavGraph(navController: NavHostController) {
@@ -24,7 +26,7 @@ fun AppNavGraph(navController: NavHostController) {
             Register2(navController)
         }
         composable(Routes.Register3) {
-            // Tela Register #3
+            Register3(navController)
         }
         composable(Routes.Dashboard) {
             // Tela de Dashboard
