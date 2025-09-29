@@ -2,7 +2,6 @@ package com.example.guardsense.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -24,13 +23,8 @@ fun HomeContentCard() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(16.dp)
+            .padding(20.dp)
     ) {
-
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-
         StatusContainersGrid()
     }
 }
@@ -39,12 +33,12 @@ fun HomeContentCard() {
 fun StatusContainersGrid() {
     Column(
         modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(12.dp)
+        verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
-        // Primeira linha
+        // Primeira linha - dois containers lado a lado
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.spacedBy(13.dp)
         ) {
             StatusContainer(
                 title = "Umidade do ar",
@@ -53,32 +47,36 @@ fun StatusContainersGrid() {
                 titleColor = White,
                 valueColor = GreenSuccess,
                 iconRes = R.drawable.ic_humidity,
-                modifier = Modifier.weight(1f).padding(end = 6.dp) // divide espaço igualmente
+                modifier = Modifier.weight(1f),
+                height = 110.dp
             )
 
             StatusContainer(
                 title = "Umidade do ar",
                 value = "Normal",
                 backgroundColor = White,
-                titleColor = TextDark,
+                titleColor = PrimaryBlue,
                 valueColor = GreenSuccess,
                 iconRes = R.drawable.ic_drop,
-                modifier = Modifier.weight(1f).padding(start = 6.dp)
+                modifier = Modifier.weight(1f),
+                height = 110.dp
             )
         }
 
-
+        // Container individual - Alagamento
         StatusContainer(
             title = "Alagamento",
             value = "Não",
             backgroundColor = White,
-            titleColor = TextDark,
+            titleColor = PrimaryBlue,
             valueColor = Orange,
             iconRes = R.drawable.ic_flood,
-            cornerRadius = 20.dp // mais arredondado
+            height = 100.dp,
+            cornerRadius = 20.dp,
+            showColon = true
         )
 
-        // Terceira linha
+        // Container individual - Presença detectada
         StatusContainer(
             title = "Presença detectada",
             value = "Não",
@@ -86,7 +84,9 @@ fun StatusContainersGrid() {
             titleColor = White,
             valueColor = Orange,
             iconRes = R.drawable.ic_presence,
-            height = 100.dp
+            height = 100.dp,
+            cornerRadius = 20.dp,
+            showColon = true
         )
     }
 }
@@ -100,44 +100,45 @@ fun StatusContainer(
     valueColor: Color,
     iconRes: Int,
     modifier: Modifier = Modifier,
-    height: Dp = 80.dp,
-    cornerRadius: Dp = 12.dp
+    height: Dp = 100.dp,
+    cornerRadius: Dp = 20.dp,
+    showColon: Boolean = false
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
             .height(height)
             .background(backgroundColor, RoundedCornerShape(cornerRadius))
-            .border(1.dp, BorderGray, RoundedCornerShape(cornerRadius))
+
     ) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(12.dp),
+                .padding(24.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
                 painter = painterResource(id = iconRes),
                 contentDescription = title,
-                modifier = Modifier.size(32.dp)
+                modifier = Modifier.size(44.dp)
             )
 
-            Spacer(modifier = Modifier.width(12.dp))
+            Spacer(modifier = Modifier.width(20.dp))
 
             Column {
                 Text(
-                    text = title,
+                    text = if (showColon) "$title:" else title,
                     fontFamily = ralewayFont,
-                    fontSize = 12.sp,
+                    fontSize = 15.sp,
                     color = titleColor,
                     fontWeight = FontWeight.Medium
                 )
 
-                Spacer(modifier = Modifier.height(2.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
                 Text(
                     text = value,
-                    fontSize = 14.sp,
+                    fontSize = 20.sp,
                     color = valueColor,
                     fontWeight = FontWeight.Bold
                 )

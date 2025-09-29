@@ -12,12 +12,11 @@ import androidx.navigation.NavController
 import com.example.guardsense.R
 import com.example.guardsense.ui.components.BottomNavBar
 import com.example.guardsense.ui.components.Header
-import com.example.guardsense.ui.components.HistoryItem
 import com.example.guardsense.ui.components.HomeContentCard
 import com.example.guardsense.ui.components.MainTemperatureContainer
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun Dashboard(navController: NavController) {
     Box(modifier = Modifier.fillMaxSize()) {
         // Imagem de fundo cobrindo TUDO
         Image(
