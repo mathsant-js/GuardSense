@@ -5,8 +5,13 @@
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml
+/.idea/usage.statistics.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+/.idea/deploymentTargetSelector.xml
+/.idea/deploymentTargetDropDown.xml
+/.idea/gradle.xml
+/.idea/compiler.xml
 .DS_Store
 /build
 /captures
