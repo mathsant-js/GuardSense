@@ -39,7 +39,7 @@ fun DoorManagement(navController: NavController) {
             .fillMaxSize()
             .background(color = Color.White)
     ) {
-        InsideHeader(navController)
+        InsideHeader(navController, "Alterar Senha da Tranca")
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center

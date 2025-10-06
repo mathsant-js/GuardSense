@@ -33,7 +33,10 @@ import com.example.guardsense.ui.theme.PrimaryBlue
 import com.example.guardsense.ui.theme.White
 
 @Composable
-fun InsideHeader(navController: NavController) {
+fun InsideHeader(
+    navController: NavController,
+    title: String
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -69,7 +72,7 @@ fun InsideHeader(navController: NavController) {
                     )
                 }
                 Text(
-                    text = "Alterar Senha da Tranca",
+                    text = title,
                     color = PrimaryBlue,
                     fontFamily = ralewayFont,
                     fontWeight = FontWeight.SemiBold,
@@ -94,5 +97,5 @@ fun InsideHeader(navController: NavController) {
 @Preview
 @Composable
 fun InsideHeaderPreview() {
-    InsideHeader(navController = rememberNavController())
+    InsideHeader(navController = rememberNavController(), "test")
 }
