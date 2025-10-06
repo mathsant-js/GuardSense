@@ -7,6 +7,8 @@ object Routes {
     const val Register1 = "register1"
     const val Register2 = "register2"
     const val Register3 = "register3"
+
+    const val LogInScreen = "login"
     const val Dashboard = "dashboard"
     const val Monitoring = "monitoring"
     const val DoorManagement = "doorManagement"
