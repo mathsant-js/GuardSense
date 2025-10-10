@@ -59,7 +59,7 @@ fun Register3(navController: NavController) {
             PlanoDeluxeCard()
             Spacer(Modifier.padding(5.dp))
             PlanoComum()
-            Spacer(Modifier.padding(12.dp))
+            Spacer(Modifier.padding(20.dp))
         }
     }
 }
