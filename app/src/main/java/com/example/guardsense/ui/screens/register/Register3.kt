@@ -11,7 +11,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Button
@@ -24,9 +26,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.guardsense.ui.BackgroundContainer
 import com.example.guardsense.ui.components.Logo
 import com.example.guardsense.ui.components.navigation.TextButtonBack
@@ -39,9 +43,12 @@ fun Register3(navController: NavController) {
     BackgroundContainer {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.fillMaxWidth(0.8f)
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
+                .verticalScroll(rememberScrollState())
         ) {
+            Spacer(Modifier.padding(40.dp))
             Logo(140, 30)
             Row(
                 horizontalArrangement = Arrangement.Start,
@@ -52,6 +59,7 @@ fun Register3(navController: NavController) {
             PlanoDeluxeCard()
             Spacer(Modifier.padding(5.dp))
             PlanoComum()
+            Spacer(Modifier.padding(12.dp))
         }
     }
 }
@@ -262,4 +270,10 @@ fun PlanoComum() {
             }
         }
     }
+}
+
+@Preview
+@Composable
+fun Register3Preview() {
+    Register3(navController = rememberNavController())
 }
