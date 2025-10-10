@@ -7,6 +7,10 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,16 +25,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.guardsense.R
 import com.example.guardsense.ui.components.ButtonCommom
 import com.example.guardsense.ui.components.InsideHeader
 import com.example.guardsense.ui.components.OutlinedTextFieldCommom
+import com.example.guardsense.ui.components.SettingsRow
 import com.example.guardsense.ui.components.Switch
 import com.example.guardsense.ui.ralewayFont
+import com.example.guardsense.ui.theme.CyanPrimary
 import com.example.guardsense.ui.theme.PrimaryBlue
 
 @Composable
 fun DoorManagement(navController: NavController) {
-    val checked = remember { mutableStateOf(true) }
+    val checked = remember { mutableStateOf(false) }
     val alterarSenhaTranca = remember { mutableStateOf("") }
 
     Column(
@@ -63,7 +70,15 @@ fun DoorManagement(navController: NavController) {
                     fontWeight = FontWeight.Normal,
                     fontSize = 18.sp
                 )
-                Switch(checked = checked, checkedThumbColor = PrimaryBlue, checkedTrackColor = Color.White, checkedBorderColor = PrimaryBlue, uncheckedThumbColor = PrimaryBlue, uncheckedTrackColor = Color.White, uncheckedBorderColor = PrimaryBlue)
+                Switch(
+                    checked = checked,
+                    checkedThumbColor = Color.White,
+                    checkedTrackColor = PrimaryBlue,
+                    checkedBorderColor = Color.White,
+                    uncheckedThumbColor = Color.White,
+                    uncheckedTrackColor = PrimaryBlue,
+                    uncheckedBorderColor = Color.White
+                )
             }
             Row(
                 horizontalArrangement = Arrangement.Center,
@@ -112,6 +127,51 @@ fun DoorManagement(navController: NavController) {
                 )
         ) {
             HorizontalDivider(color = PrimaryBlue, thickness = 2.dp)
+        }
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    top = 6.dp,
+                    bottom = 10.dp,
+                    start = 5.dp,
+                    end = 5.dp
+                )
+        ) {
+            CardDoorManagement()
+        }
+    }
+}
+
+@Composable
+fun CardDoorManagement() {
+    Row {
+        LazyColumn(
+            modifier = Modifier
+                .padding(16.dp)
+                .padding(horizontal = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            item {
+                Card(
+                    shape = RoundedCornerShape(20.dp),
+                    colors = CardDefaults.cardColors(containerColor = CyanPrimary),
+                ) {
+                    Column(modifier = Modifier.padding(vertical = 8.dp)) {
+                        SettingsRow(text = "Utilizar Sensor de Digital", icon = R.drawable.ic_lock, textColor = PrimaryBlue)
+                        SettingsRow(text = "Desbloqueio por Aplicativo", icon = R.drawable.ic_fingerprint, textColor = PrimaryBlue)
+                        SettingsRow(text = "Reconhecimento Facial", icon = R.drawable.ic_facialrecog, textColor = PrimaryBlue)
+                        SettingsRow(
+                            text = "Notificação de 2ºEtapa",
+                            icon = R.drawable.ic_notifications,
+                            showDivider = false,
+                            textColor = PrimaryBlue
+                        )
+                    }
+                }
+            }
         }
     }
 }

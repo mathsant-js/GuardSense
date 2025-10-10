@@ -18,3 +18,5 @@ val TextDark = Color(0xFF333333)
 
 val LittleDarkBlue = Color(0xFF0C5F6D)
 val LightBlue = Color(0xFF1BA8C1)
+
+val CyanPrimary = Color(0xFFEEFCFF)
