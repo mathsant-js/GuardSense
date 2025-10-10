@@ -50,7 +50,7 @@ fun SettingsRow(
                 Text(
                     text = text,
                     color = textColor,
-                    fontSize = 16.sp,
+                    fontSize = 14.sp,
                     modifier = Modifier.padding(start = 16.dp)
                 )
             }
