@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -30,7 +28,7 @@ fun SettingsRow(
     icon: Int = R.drawable.ic_logo_mini,
     showDivider: Boolean = true
 ) {
-    var isChecked = remember { mutableStateOf(false) }
+    val isChecked = remember { mutableStateOf(false) }
 
     Column {
         Row(
@@ -65,10 +63,10 @@ fun SettingsRow(
             )
         }
         if (showDivider) {
-            Divider(
-                color = textColor,
+            HorizontalDivider(
+                modifier = Modifier.padding(horizontal = 16.dp),
                 thickness = 1.dp,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                color = textColor
             )
         }
     }
