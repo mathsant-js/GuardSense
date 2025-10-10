@@ -90,7 +90,7 @@ fun Settings(navController: NavController) {
                 }
 
                 item {
-                    Spacer(modifier = Modifier.height(16.dp)) // Add space at the bottom
+                    Spacer(modifier = Modifier.height(65.dp)) // Add space at the bottom
                 }
             }
         }
