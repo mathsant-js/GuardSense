@@ -46,6 +46,7 @@ fun DoorManagement(navController: NavController) {
             .fillMaxSize()
             .background(color = Color.White)
     ) {
+
         InsideHeader(navController, "Alterar Senha da Tranca")
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -120,7 +121,7 @@ fun DoorManagement(navController: NavController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(
-                    top = 6.dp,
+                    top = 16.dp,
                     bottom = 10.dp,
                     start = 30.dp,
                     end = 30.dp
@@ -136,8 +137,8 @@ fun DoorManagement(navController: NavController) {
                 .padding(
                     top = 6.dp,
                     bottom = 10.dp,
-                    start = 5.dp,
-                    end = 5.dp
+                    start = 2.dp,
+                    end = 2.dp
                 )
         ) {
             CardDoorManagement()
@@ -148,33 +149,44 @@ fun DoorManagement(navController: NavController) {
 @Composable
 fun CardDoorManagement() {
     Row {
-        LazyColumn(
+        Column(
             modifier = Modifier
                 .padding(16.dp)
                 .padding(horizontal = 8.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            item {
-                Card(
-                    shape = RoundedCornerShape(20.dp),
-                    colors = CardDefaults.cardColors(containerColor = CyanPrimary),
-                ) {
-                    Column(modifier = Modifier.padding(vertical = 8.dp)) {
-                        SettingsRow(text = "Utilizar Sensor de Digital", icon = R.drawable.ic_lock, textColor = PrimaryBlue)
-                        SettingsRow(text = "Desbloqueio por Aplicativo", icon = R.drawable.ic_fingerprint, textColor = PrimaryBlue)
-                        SettingsRow(text = "Reconhecimento Facial", icon = R.drawable.ic_facialrecog, textColor = PrimaryBlue)
-                        SettingsRow(
-                            text = "Notificação de 2ºEtapa",
-                            icon = R.drawable.ic_notifications,
-                            showDivider = false,
-                            textColor = PrimaryBlue
-                        )
-                    }
+            Card(
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(containerColor = CyanPrimary),
+            ) {
+                Column(modifier = Modifier.padding(vertical = 8.dp)) {
+                    SettingsRow(
+                        text = "Utilizar Sensor de Digital",
+                        icon = R.drawable.ic_lock,
+                        textColor = PrimaryBlue
+                    )
+                    SettingsRow(
+                        text = "Desbloqueio por Aplicativo",
+                        icon = R.drawable.ic_fingerprint,
+                        textColor = PrimaryBlue
+                    )
+                    SettingsRow(
+                        text = "Reconhecimento Facial",
+                        icon = R.drawable.ic_facialrecog,
+                        textColor = PrimaryBlue
+                    )
+                    SettingsRow(
+                        text = "Notificação de 2ºEtapa",
+                        icon = R.drawable.ic_notifications,
+                        showDivider = false,
+                        textColor = PrimaryBlue
+                    )
                 }
             }
         }
     }
 }
+
 
 @Preview
 @Composable
