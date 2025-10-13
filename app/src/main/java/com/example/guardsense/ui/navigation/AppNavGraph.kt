@@ -10,6 +10,7 @@ import com.example.guardsense.ui.screens.Dashboard.Dashboard
 import com.example.guardsense.ui.screens.DoorManagement.DoorManagement
 import com.example.guardsense.ui.screens.LogIn.LogInScreen
 import com.example.guardsense.ui.screens.Settings.Settings
+import com.example.guardsense.ui.screens.profile.Profile
 import com.example.guardsense.ui.screens.register.Register1
 import com.example.guardsense.ui.screens.register.Register2
 import com.example.guardsense.ui.screens.register.Register3
@@ -45,7 +46,7 @@ fun AppNavGraph(navController: NavHostController) {
             DoorManagement(navController)
         }
         composable(Routes.Profile) {
-            // Tela de Perfil
+            Profile(navController)
         }
         composable(Routes.Settings) {
             Settings(navController)

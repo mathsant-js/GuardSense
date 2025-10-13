@@ -56,6 +56,7 @@ dependencies {
 
     // Necessário para salvar estado
     implementation ("androidx.compose.runtime:runtime-saveable")
+    implementation(libs.androidx.compose.ui.graphics)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
