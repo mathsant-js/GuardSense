@@ -129,7 +129,7 @@ fun SignInScreen(navController: NavController) {
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
-                        painter = painterResource(id = R.drawable.ic_apple),
+                        painter = painterResource(id = R.drawable.ic_microsoft),
                         contentDescription = "Microsoft",
                         modifier = Modifier.size(24.dp)
                     )
