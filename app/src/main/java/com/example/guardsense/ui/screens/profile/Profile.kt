@@ -162,13 +162,15 @@ fun ButtonChangeTheme() {
         ) {
             Text(
                 text = "Alterar tema",
+                fontFamily = ralewayFont,
                 color = Color.White,
                 fontSize = 16.sp
             )
             Icon(
-                painter = painterResource(R.drawable.ic_apple), // substitua pelo ícone que você tiver
+                painter = painterResource(R.drawable.ic_sun),
                 contentDescription = "Alterar tema",
-                tint = Color.White
+                tint = Color.White,
+                modifier = Modifier.size(24.dp)
             )
         }
     }
@@ -188,18 +190,18 @@ fun CardSettings() {
                 Column(modifier = Modifier.padding(vertical = 8.dp)) {
                     SettingsProfile(
                         text = "Editar informações",
-                        textColor = PrimaryBlue
-                        // Colocar o ícone de lápis
+                        textColor = PrimaryBlue,
+                        icon = R.drawable.ic_edit
                     )
                     SettingsProfile(
                         text = "Alterar senha da conta",
-                        textColor = PrimaryBlue
-                        // Colocar o ícone de senha da conta
+                        textColor = PrimaryBlue,
+                        icon = R.drawable.ic_account_password
                     )
                     SettingsProfile(
                         text = "Alterar senha da tranca",
                         textColor = PrimaryBlue,
-                        // Colocar o ícone de senha da tranca
+                        icon = R.drawable.ic_keypad,
                         showDivider = false
                     )
                 }

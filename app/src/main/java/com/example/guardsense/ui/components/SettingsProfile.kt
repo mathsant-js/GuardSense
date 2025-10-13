@@ -34,7 +34,10 @@ fun SettingsProfile(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(vertical = 5.dp)
+            ) {
                 Icon(
                     painter = painterResource(id = icon),
                     contentDescription = null,
