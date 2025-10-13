@@ -41,7 +41,7 @@ fun StatusContainersGrid() {
             horizontalArrangement = Arrangement.spacedBy(13.dp)
         ) {
             StatusContainer(
-                title = "Umidade do ar",
+                title = "Nível de gás",
                 value = "Comum",
                 backgroundColor = PrimaryBlue,
                 titleColor = White,
