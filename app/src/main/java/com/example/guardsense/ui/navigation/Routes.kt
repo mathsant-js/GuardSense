@@ -12,6 +12,6 @@ object Routes {
     const val Dashboard = "dashboard"
     const val Monitoring = "monitoring"
     const val DoorManagement = "doorManagement"
-    const val Perfil = "perfil"
+    const val Profile = "profile"
     const val Settings = "settings"
 }

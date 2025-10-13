@@ -44,7 +44,7 @@ fun AppNavGraph(navController: NavHostController) {
         composable(Routes.DoorManagement) {
             DoorManagement(navController)
         }
-        composable(Routes.Perfil) {
+        composable(Routes.Profile) {
             // Tela de Perfil
         }
         composable(Routes.Settings) {
