@@ -20,6 +20,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -36,6 +37,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.guardsense.R
 import com.example.guardsense.ui.components.Header
 import com.example.guardsense.ui.components.SettingsProfile
+import com.example.guardsense.ui.navigation.Routes
 import com.example.guardsense.ui.ralewayFont
 import com.example.guardsense.ui.theme.CyanPrimary
 import com.example.guardsense.ui.theme.PrimaryBlue
@@ -74,12 +76,17 @@ fun Profile(navController: NavController) {
                         fontFamily = ralewayFont,
                         fontWeight = FontWeight.SemiBold
                     )
-                    Icon(
-                        Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                        contentDescription = "Abrir configurações",
-                        tint = PrimaryBlue,
-                        modifier = Modifier.size(30.dp)
-                    )
+                    IconButton(
+                        onClick = { navController.navigate(Routes.Settings) }
+                    ) {
+                        Icon(
+                            Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                            contentDescription = "Abrir configurações",
+                            tint = PrimaryBlue,
+                            modifier = Modifier.size(30.dp)
+                        )
+                    }
+
                 }
                 HorizontalDivider(
                     thickness = 1.dp,

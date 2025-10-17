@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.guardsense.R
+import com.example.guardsense.ui.navigation.Routes
 import com.example.guardsense.ui.ralewayFont
 import com.example.guardsense.ui.theme.*
 
@@ -40,22 +41,22 @@ fun BottomNavBar(
             NavItem(
                 title = "Home",
                 iconRes = R.drawable.ic_home,
-                isSelected = currentRoute == "home",
-                onClick = { if (currentRoute != "home") navController.navigate("home") }
+                isSelected = currentRoute == Routes.Dashboard,
+                onClick = { if (currentRoute != Routes.Dashboard) navController.navigate(Routes.Dashboard) }
             )
 
             NavItem(
                 title = "Segurança",
                 iconRes = R.drawable.ic_security,
-                isSelected = currentRoute == "security",
-                onClick = { if (currentRoute != "security") navController.navigate("security") }
+                isSelected = currentRoute == Routes.Monitoring,
+                onClick = { if (currentRoute != Routes.Monitoring) navController.navigate(Routes.Monitoring) }
             )
 
             NavItem(
                 title = "Perfil",
                 iconRes = R.drawable.ic_profile,
-                isSelected = currentRoute == "profile",
-                onClick = { if (currentRoute != "profile") navController.navigate("profile") }
+                isSelected = currentRoute == Routes.Profile,
+                onClick = { if (currentRoute != Routes.Profile) navController.navigate(Routes.Profile) }
             )
         }
     }
