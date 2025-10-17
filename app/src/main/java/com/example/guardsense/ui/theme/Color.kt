@@ -16,6 +16,10 @@ val GrayLight = Color(0xFFCCCCCC)
 val TextGray = Color(0xFF666666)
 val TextDark = Color(0xFF333333)
 
+val DarkBackground = Color(0xFF232323)
+
+val LittleDark = Color(0xFF353535)
+
 val LittleDarkBlue = Color(0xFF0C5F6D)
 val LightBlue = Color(0xFF1BA8C1)
 

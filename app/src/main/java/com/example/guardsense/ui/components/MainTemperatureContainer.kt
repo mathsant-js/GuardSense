@@ -2,21 +2,31 @@ package com.example.guardsense.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.guardsense.R
 import com.example.guardsense.ui.ralewayFont
-import com.example.guardsense.ui.theme.*
+import com.example.guardsense.ui.theme.Orange
+import com.example.guardsense.ui.theme.PrimaryBlue
+import com.example.guardsense.ui.theme.TextDark
 
 @Composable
 fun MainTemperatureContainer() {
@@ -24,7 +34,7 @@ fun MainTemperatureContainer() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 25.dp)
-            .background(White, RoundedCornerShape(16.dp))
+            .background(MaterialTheme.colorScheme.primaryContainer, RoundedCornerShape(16.dp))
             .padding(20.dp)
     ) {
         Column(
@@ -96,7 +106,7 @@ fun HistoryItem(temperature: String, day: String) {
         Text(
             text = temperature,
             fontSize = 18.sp,
-            color = TextDark,
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
             fontWeight = FontWeight.Bold
         )
 
@@ -106,7 +116,7 @@ fun HistoryItem(temperature: String, day: String) {
             text = day,
             fontFamily = ralewayFont,
             fontSize = 15.sp,
-            color = TextGray,
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
             fontWeight = FontWeight.Medium
         )
     }

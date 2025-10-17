@@ -21,8 +21,13 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,16 +44,19 @@ import com.example.guardsense.ui.components.Header
 import com.example.guardsense.ui.components.SettingsProfile
 import com.example.guardsense.ui.navigation.Routes
 import com.example.guardsense.ui.ralewayFont
-import com.example.guardsense.ui.theme.CyanPrimary
+import com.example.guardsense.ui.theme.GuardSenseTheme
 import com.example.guardsense.ui.theme.PrimaryBlue
 
 @Composable
-fun Profile(navController: NavController) {
+fun Profile(
+    navController: NavController,
+    onToggleTheme: () -> Unit
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.White)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         Header()
         Column(
@@ -60,7 +68,7 @@ fun Profile(navController: NavController) {
             ) {
                 CardProfile()
             }
-            ButtonChangeTheme()
+            ButtonChangeTheme(onToggleTheme)
             Column(Modifier.padding(top = 20.dp, bottom = 0.dp, start = 8.dp, end = 8.dp)) {
                 Row(
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -102,7 +110,7 @@ fun Profile(navController: NavController) {
 fun CardProfile() {
     Card(
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = CyanPrimary),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         modifier = Modifier
             .fillMaxWidth()
             .padding(
@@ -152,9 +160,9 @@ fun CardProfile() {
 }
 
 @Composable
-fun ButtonChangeTheme() {
+fun ButtonChangeTheme(onToggleTheme: () -> Unit) {
     Button(
-        onClick = { },
+        onClick = { onToggleTheme() },
         colors = ButtonDefaults.buttonColors(containerColor = PrimaryBlue),
         shape = RoundedCornerShape(12.dp),
         modifier = Modifier
@@ -192,7 +200,7 @@ fun CardSettings() {
         ) {
             Card(
                 shape = RoundedCornerShape(20.dp),
-                colors = CardDefaults.cardColors(containerColor = CyanPrimary),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
             ) {
                 Column(modifier = Modifier.padding(vertical = 8.dp)) {
                     SettingsProfile(
@@ -217,8 +225,16 @@ fun CardSettings() {
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-fun ProfilePreview() {
-    Profile(navController = rememberNavController())
+fun ProfilePreviewInteractive() {
+    var isDarkTheme by remember { mutableStateOf(true) }
+    val navController = rememberNavController()
+
+    GuardSenseTheme(darkTheme = isDarkTheme) {
+        Profile(
+            navController = navController,
+            onToggleTheme = { isDarkTheme = !isDarkTheme } // alterna tema no preview
+        )
+    }
 }

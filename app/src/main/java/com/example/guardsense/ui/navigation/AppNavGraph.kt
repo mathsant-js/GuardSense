@@ -17,7 +17,10 @@ import com.example.guardsense.ui.screens.register.Register2
 import com.example.guardsense.ui.screens.register.Register3
 
 @Composable
-fun AppNavGraph(navController: NavHostController) {
+fun AppNavGraph(
+    navController: NavHostController,
+    onToggleTheme: () -> Unit
+) {
     NavHost(
         navController = navController,
         startDestination = Routes.Monitoring
@@ -47,7 +50,7 @@ fun AppNavGraph(navController: NavHostController) {
             DoorManagement(navController)
         }
         composable(Routes.Profile) {
-            Profile(navController)
+            Profile(navController, onToggleTheme)
         }
         composable(Routes.Settings) {
             Settings(navController)

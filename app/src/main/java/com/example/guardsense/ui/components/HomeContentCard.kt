@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -54,7 +55,7 @@ fun StatusContainersGrid() {
             StatusContainer(
                 title = "Umidade do ar",
                 value = "Normal",
-                backgroundColor = White,
+                backgroundColor = MaterialTheme.colorScheme.primaryContainer,
                 titleColor = PrimaryBlue,
                 valueColor = GreenSuccess,
                 iconRes = R.drawable.ic_drop,
@@ -67,7 +68,7 @@ fun StatusContainersGrid() {
         StatusContainer(
             title = "Alagamento",
             value = "Não",
-            backgroundColor = White,
+            backgroundColor = MaterialTheme.colorScheme.primaryContainer,
             titleColor = PrimaryBlue,
             valueColor = Orange,
             iconRes = R.drawable.ic_flood,

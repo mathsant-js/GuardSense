@@ -13,14 +13,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.guardsense.R
-import com.example.guardsense.ui.theme.BorderGray
-import com.example.guardsense.ui.theme.White
 
 @Composable
 fun Header() {
@@ -36,8 +35,8 @@ fun TopHeaderBar() {
             .fillMaxWidth()
             .statusBarsPadding()
             .height(60.dp)
-            .background(White)
-            .border(2.dp, BorderGray)
+            .background(MaterialTheme.colorScheme.background)
+            .border(2.dp, MaterialTheme.colorScheme.outline)
     ) {
         Row(
             modifier = Modifier

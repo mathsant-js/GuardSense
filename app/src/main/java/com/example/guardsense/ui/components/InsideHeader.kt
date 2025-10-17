@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,7 +32,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.guardsense.R
 import com.example.guardsense.ui.ralewayFont
 import com.example.guardsense.ui.theme.PrimaryBlue
-import com.example.guardsense.ui.theme.White
 
 @Composable
 fun InsideHeader(
@@ -43,7 +43,7 @@ fun InsideHeader(
             .fillMaxWidth()
             .statusBarsPadding()
             .height(60.dp)
-            .background(White)
+            .background(MaterialTheme.colorScheme.background)
             .drawBehind {
                 val strokeWidth = 2.dp.toPx()
                 val y = size.height - strokeWidth / 2

@@ -11,6 +11,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -31,7 +32,6 @@ import com.example.guardsense.ui.components.OutlinedTextFieldCommom
 import com.example.guardsense.ui.components.SettingsRow
 import com.example.guardsense.ui.components.Switch
 import com.example.guardsense.ui.ralewayFont
-import com.example.guardsense.ui.theme.CyanPrimary
 import com.example.guardsense.ui.theme.PrimaryBlue
 
 @Composable
@@ -43,7 +43,7 @@ fun DoorManagement(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxSize()
-            .background(color = Color.White)
+            .background(color = MaterialTheme.colorScheme.background)
     ) {
 
         InsideHeader(navController, "Alterar Senha da Tranca")
@@ -156,7 +156,7 @@ fun CardDoorManagement() {
         ) {
             Card(
                 shape = RoundedCornerShape(20.dp),
-                colors = CardDefaults.cardColors(containerColor = CyanPrimary),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
             ) {
                 Column(modifier = Modifier.padding(vertical = 8.dp)) {
                     SettingsRow(

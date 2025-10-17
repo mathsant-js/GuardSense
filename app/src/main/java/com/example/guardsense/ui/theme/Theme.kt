@@ -15,8 +15,11 @@ private val DarkColorScheme = darkColorScheme(
     primary = PrimaryBlue,
     secondary = DarkBlue,
     tertiary = GrayLight,
-    background = DarkBlue,
-    surface = DarkBlue,
+    background = DarkBackground,
+    surface = LittleDark,
+    outline = LittleDark,
+    primaryContainer = LittleDark,
+    onPrimaryContainer = White,
     onPrimary = White,
     onSecondary = White,
     onTertiary = Black,
@@ -30,7 +33,10 @@ private val LightColorScheme = lightColorScheme(
     secondary = DarkBlue,
     tertiary = GrayLight,
     background = White,
-    surface = White,
+    surface = CyanPrimary,
+    outline = BorderGray,
+    primaryContainer = White,
+    onPrimaryContainer = TextGray,
     onPrimary = White,
     onSecondary = White,
     onTertiary = Black,
@@ -41,7 +47,7 @@ private val LightColorScheme = lightColorScheme(
 @Composable
 fun GuardSenseTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
