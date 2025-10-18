@@ -2,6 +2,7 @@ package com.example.guardsense.ui.screens.profile
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,7 +21,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -75,7 +75,8 @@ fun Profile(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(vertical = 8.dp, horizontal = 5.dp)
+                        .padding(vertical = 8.dp, horizontal = 10.dp)
+                        .clickable { navController.navigate(Routes.Settings) }
                 ) {
                     Text(
                         text = "Configurações",
@@ -84,17 +85,12 @@ fun Profile(
                         fontFamily = ralewayFont,
                         fontWeight = FontWeight.SemiBold
                     )
-                    IconButton(
-                        onClick = { navController.navigate(Routes.Settings) }
-                    ) {
-                        Icon(
-                            Icons.AutoMirrored.Filled.KeyboardArrowRight,
-                            contentDescription = "Abrir configurações",
-                            tint = PrimaryBlue,
-                            modifier = Modifier.size(30.dp)
-                        )
-                    }
-
+                    Icon(
+                        Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                        contentDescription = "Abrir configurações",
+                        tint = PrimaryBlue,
+                        modifier = Modifier.size(30.dp)
+                    )
                 }
                 HorizontalDivider(
                     thickness = 1.dp,
