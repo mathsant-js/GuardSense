@@ -34,14 +34,14 @@ fun HomeContentCard() {
 fun StatusContainersGrid() {
     Column(
         modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(24.dp)
+        verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
         // Primeira linha - dois containers lado a lado
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(13.dp)
         ) {
-            StatusContainer(
+            StatusContainerTopTitle(
                 title = "Nível de gás",
                 value = "Comum",
                 backgroundColor = PrimaryBlue,
@@ -52,7 +52,7 @@ fun StatusContainersGrid() {
                 height = 110.dp
             )
 
-            StatusContainer(
+            StatusContainerTopTitle(
                 title = "Umidade do ar",
                 value = "Normal",
                 backgroundColor = MaterialTheme.colorScheme.primaryContainer,
@@ -65,35 +65,33 @@ fun StatusContainersGrid() {
         }
 
         // Container individual - Alagamento
-        StatusContainer(
+        StatusContainerHorizontal(
             title = "Alagamento",
             value = "Não",
             backgroundColor = MaterialTheme.colorScheme.primaryContainer,
             titleColor = PrimaryBlue,
             valueColor = Orange,
             iconRes = R.drawable.ic_flood,
-            height = 100.dp,
-            cornerRadius = 20.dp,
-            showColon = true
+            height = 60.dp,
+            cornerRadius = 20.dp
         )
 
         // Container individual - Presença detectada
-        StatusContainer(
+        StatusContainerHorizontal(
             title = "Presença detectada",
             value = "Não",
             backgroundColor = PrimaryBlue,
             titleColor = White,
             valueColor = Orange,
             iconRes = R.drawable.ic_presence,
-            height = 100.dp,
-            cornerRadius = 20.dp,
-            showColon = true
+            height = 95.dp,
+            cornerRadius = 20.dp
         )
     }
 }
 
 @Composable
-fun StatusContainer(
+fun StatusContainerTopTitle(
     title: String,
     value: String,
     backgroundColor: Color,
@@ -101,47 +99,118 @@ fun StatusContainer(
     valueColor: Color,
     iconRes: Int,
     modifier: Modifier = Modifier,
-    height: Dp = 100.dp,
-    cornerRadius: Dp = 20.dp,
-    showColon: Boolean = false
+    height: Dp = 110.dp,
+    cornerRadius: Dp = 20.dp
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
             .height(height)
             .background(backgroundColor, RoundedCornerShape(cornerRadius))
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(12.dp),
+            horizontalAlignment = Alignment.Start
+        ) {
 
+            Text(
+                text = title,
+                fontFamily = ralewayFont,
+                fontSize = 14.sp,
+                color = titleColor,
+                fontWeight = FontWeight.Medium,
+                maxLines = 1
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                Image(
+                    painter = painterResource(id = iconRes),
+                    contentDescription = title,
+                    modifier = Modifier.size(32.dp)
+                )
+
+                Spacer(modifier = Modifier.width(10.dp))
+
+                Text(
+                    text = value,
+                    fontSize = 22.sp,
+                    color = valueColor,
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun StatusContainerHorizontal(
+    title: String,
+    value: String,
+    backgroundColor: Color,
+    titleColor: Color,
+    valueColor: Color,
+    iconRes: Int,
+    modifier: Modifier = Modifier,
+    height: Dp = 80.dp,
+    cornerRadius: Dp = 20.dp
+) {
+    Box(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(height)
+            .background(backgroundColor, RoundedCornerShape(cornerRadius))
     ) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(24.dp),
+                .padding(horizontal = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
+
             Image(
                 painter = painterResource(id = iconRes),
                 contentDescription = title,
-                modifier = Modifier.size(44.dp)
+                modifier = Modifier.size(
+                    if (title == "Presença detectada") 42.dp else 34.dp
+                )
             )
 
-            Spacer(modifier = Modifier.width(20.dp))
+            Spacer(modifier = Modifier.width(14.dp))
 
-            Column {
+
+            Row(
+                modifier = Modifier
+                    .weight(1f)
+                    .fillMaxHeight(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
                 Text(
-                    text = if (showColon) "$title:" else title,
+                    text = "$title:",
                     fontFamily = ralewayFont,
-                    fontSize = 15.sp,
+                    fontSize = 18.sp,
                     color = titleColor,
-                    fontWeight = FontWeight.Medium
+                    fontWeight = FontWeight.Medium,
+                    maxLines = 1
                 )
 
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.width(8.dp))
 
                 Text(
                     text = value,
-                    fontSize = 20.sp,
+                    fontSize = 18.sp,
                     color = valueColor,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    maxLines = 1
                 )
             }
         }

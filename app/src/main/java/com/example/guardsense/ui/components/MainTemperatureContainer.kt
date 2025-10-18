@@ -101,7 +101,7 @@ fun MainTemperatureContainer() {
 fun HistoryItem(temperature: String, day: String) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.width(50.dp) // Largura um pouco menor
+        modifier = Modifier.width(50.dp)
     ) {
         Text(
             text = temperature,
