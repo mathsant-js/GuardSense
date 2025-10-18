@@ -7,7 +7,7 @@ val PrimaryBlue = Color(0xFF0097B2)
 val DarkBlue = Color(0xFF00404C)
 
 val RedError = Color(0xFFF44336)
-val GreenSuccess = Color(0xFF4CAF50)
+val GreenSuccess = Color(0xFF2CE37E)
 val Orange = Color(0XFFC76B0A)
 
 val BorderGray = Color(0xFFE0E0E0)

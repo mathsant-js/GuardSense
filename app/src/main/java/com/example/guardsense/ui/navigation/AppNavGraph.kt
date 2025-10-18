@@ -23,7 +23,7 @@ fun AppNavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Routes.Dashboard
+        startDestination = Routes.LogInScreen
     ) {
         composable(Routes.SignInScreen) {
             SignInScreen(navController)

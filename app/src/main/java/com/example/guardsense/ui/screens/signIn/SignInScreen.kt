@@ -32,9 +32,9 @@ fun BackgroundContainer(content: @Composable BoxScope.() -> Unit) {
         modifier = Modifier
             .fillMaxSize()
             .background(
-            brush = Brush.verticalGradient(
+                brush = Brush.verticalGradient(
                     listOf(PrimaryBlue, DarkBlue)
-             )
+                )
             ),
         contentAlignment = Alignment.Center
     ) { content()
@@ -43,23 +43,23 @@ fun BackgroundContainer(content: @Composable BoxScope.() -> Unit) {
 @Composable
 fun SignInScreen(navController: NavController) {
     BackgroundContainer {
-      Column(
+        Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier.padding(horizontal = 40.dp)
         ) {
             Image(
-            painter = painterResource(id = R.drawable.ic_logo),
-            contentDescription = "Logo",
-             modifier = Modifier.size(160.dp).padding(bottom = 20.dp)
+                painter = painterResource(id = R.drawable.ic_logo),
+                contentDescription = "Logo",
+                modifier = Modifier.size(160.dp).padding(bottom = 20.dp)
             )
 
             Button(
-            onClick = { navController.navigate(Routes.Register1) },
-            colors = ButtonDefaults.buttonColors(containerColor = PrimaryBlue),
-            modifier = Modifier
-                  .fillMaxWidth()
-                  .height(55.dp),
+                onClick = { navController.navigate(Routes.Register1) },
+                colors = ButtonDefaults.buttonColors(containerColor = PrimaryBlue),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(55.dp),
                 shape = RoundedCornerShape(12.dp)
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -94,9 +94,9 @@ fun SignInScreen(navController: NavController) {
                     thickness = DividerDefaults.Thickness, color = Color.White.copy(alpha = 1f)
                 )
             }
-
+            // Botão Google
             Button(
-                onClick = { /* Goole */ },
+                onClick = { /* Google */ },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -107,7 +107,8 @@ fun SignInScreen(navController: NavController) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_google),
                         contentDescription = "Google",
-                        modifier = Modifier.size(24.dp)
+                        modifier = Modifier.size(24.dp),
+                        tint = Color.Black
                     )
                     Text(
                         text = "Continuar com Google",
@@ -115,12 +116,14 @@ fun SignInScreen(navController: NavController) {
                         fontFamily = ralewayFont,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 16.sp,
-                        modifier = Modifier.weight(1f).padding(start = 8.dp)
+                        modifier = Modifier.padding(start = 12.dp)
                     )
                 }
             }
+
+            // Botão Microsoft
             Button(
-                onClick = { /* Apple */ },
+                onClick = { /* Microsoft */ },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -131,7 +134,8 @@ fun SignInScreen(navController: NavController) {
                     Icon(
                         painter = painterResource(id = R.drawable.ic_microsoft),
                         contentDescription = "Microsoft",
-                        modifier = Modifier.size(24.dp)
+                        modifier = Modifier.size(24.dp),
+                        tint = Color.Black
                     )
                     Text(
                         text = "Continuar com Microsoft",
@@ -139,7 +143,7 @@ fun SignInScreen(navController: NavController) {
                         fontFamily = ralewayFont,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 16.sp,
-                        modifier = Modifier.weight(1f).padding(start = 8.dp)
+                        modifier = Modifier.padding(start = 12.dp)
                     )
                 }
             }
