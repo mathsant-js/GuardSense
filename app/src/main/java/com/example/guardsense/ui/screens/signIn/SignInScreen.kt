@@ -73,27 +73,31 @@ fun SignInScreen(navController: NavController) {
                     )
                 }
             }
+            // Divisor "Ou"
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 HorizontalDivider(
-                    modifier = Modifier.weight(1f).height(1.dp),
-                    thickness = DividerDefaults.Thickness, color = Color.White.copy(alpha = 1f)
+                    modifier = Modifier.weight(1f),
+                    thickness = 1.dp,
+                    color = Color.White.copy(alpha = 0.7f)
                 )
                 Text(
                     text = "Ou",
                     color = Color.White,
                     fontFamily = ralewayFont,
                     fontWeight = FontWeight.SemiBold,
-                    fontSize = 16.sp,
-                    modifier = Modifier.padding(horizontal = 10.dp)
+                    fontSize = 14.sp,
+                    modifier = Modifier.padding(horizontal = 16.dp)
                 )
                 HorizontalDivider(
-                    modifier = Modifier.weight(1f).height(1.dp),
-                    thickness = DividerDefaults.Thickness, color = Color.White.copy(alpha = 1f)
+                    modifier = Modifier.weight(1f),
+                    thickness = 1.dp,
+                    color = Color.White.copy(alpha = 0.7f)
                 )
             }
+
             // Botão Google
             Button(
                 onClick = { /* Google */ },
@@ -103,16 +107,18 @@ fun SignInScreen(navController: NavController) {
                     .height(55.dp),
                 shape = RoundedCornerShape(12.dp)
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Image(
                         painter = painterResource(id = R.drawable.ic_google),
                         contentDescription = "Google",
-                        modifier = Modifier.size(24.dp),
-                        tint = Color.Black
+                        modifier = Modifier.size(24.dp)
                     )
                     Text(
                         text = "Continuar com Google",
-                        color = Color.Black,
+                        color = PrimaryBlue,
                         fontFamily = ralewayFont,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 16.sp,
@@ -130,16 +136,18 @@ fun SignInScreen(navController: NavController) {
                     .height(55.dp),
                 shape = RoundedCornerShape(12.dp)
             ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Image(
                         painter = painterResource(id = R.drawable.ic_microsoft),
                         contentDescription = "Microsoft",
-                        modifier = Modifier.size(24.dp),
-                        tint = Color.Black
+                        modifier = Modifier.size(24.dp)
                     )
                     Text(
                         text = "Continuar com Microsoft",
-                        color = Color.Black,
+                        color = PrimaryBlue,
                         fontFamily = ralewayFont,
                         fontWeight = FontWeight.SemiBold,
                         fontSize = 16.sp,
