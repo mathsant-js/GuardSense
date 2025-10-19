@@ -20,38 +20,40 @@ char matriz_teclado[linhas][colunas] = {
 };
 
 // pinos para linhas e colunas do teclado
-byte pinosLinhas[linhas] = {9, 8, 7, 6};
-byte pinosColunas[colunas] = {4, 5, 3, 2};
+byte pinosLinhas[linhas] = {13, 12, 11, 10};
+byte pinosColunas[colunas] = {9, 8, 7, 6};
 
 // criação do objeto Keypad correspondente ao teclado
 Keypad tecladosenha = Keypad(makeKeymap(matriz_teclado), pinosLinhas, pinosColunas, linhas, colunas);
 
 // definição do pino do sensor de vibração
-int vibracao = 11;
+int vibracao = 3;
 
 // definição do pino da tranca solenoide
-int tranca = A5;
+int tranca = 5;
 
 void setup()
 {
   // definindo o pino do sensor de vibração, inicializando o monitor serial, e iniciando o display lcd
   pinMode(vibracao, INPUT);
   pinMode(tranca, OUTPUT);
+  digitalWrite(tranca, HIGH);
   Serial.begin(9600);
   lcd.init();
   lcd.backlight();
   lcd.clear();
-  Serial.println("Digite a Senha: ");
-  Serial.println();
 }
 
 void loop()
 {
+  // o lcd deve ser reinicializado a cada loop porque o relay interfere nele
+  lcd.init();
+  
   // verificando e informando se há vibração
   if (digitalRead(vibracao) == HIGH) {
-    Serial.println("alto");
+    Serial.println("Vibração detectada na porta.");
   } else {
-    Serial.println("baixo");
+    Serial.println("Sem vibração na porta.");
   };
 
   lcd.setCursor(0, 0);
@@ -76,16 +78,14 @@ void loop()
   // conferir e exibir se a senha digitada estava certa ou errada
   if (digitada == senha) {
     lcd.print("Senha Correta");
-    digitalWrite(tranca, HIGH);
-    delay(5000);
     digitalWrite(tranca, LOW);
+    delay(5000);
+    digitalWrite(tranca, HIGH);
+    lcd.clear();
   } else {
     lcd.print("Senha Incorreta");
-    digitalWrite(tranca, LOW);
+    digitalWrite(tranca, HIGH);
+    delay(3000);
+    lcd.clear();
   }
-  // ainda não há certeza de qual abre ou qual fecha entre o HIGH e LOW, isso será verificado ao testar fisicamente
-  
-  delay(3000);
-  // limpa o display
-  lcd.clear();
 }

@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -23,14 +22,12 @@ import com.example.guardsense.R
 import com.example.guardsense.ui.theme.PrimaryBlue
 
 @Composable
-fun SettingsRow(
+fun MonitoringRow(
     text: String,
-    textColor: Color = MaterialTheme.colorScheme.surface,
+    textColor: Color = Color.White,
     icon: Int = R.drawable.ic_logo_mini,
     showDivider: Boolean = true
 ) {
-    val isChecked = remember { mutableStateOf(false) }
-
     Column {
         Row(
             modifier = Modifier
@@ -53,15 +50,6 @@ fun SettingsRow(
                     modifier = Modifier.padding(start = 16.dp)
                 )
             }
-            Switch(
-                checked = isChecked,
-                checkedThumbColor = MaterialTheme.colorScheme.surface,
-                checkedTrackColor = PrimaryBlue,
-                uncheckedThumbColor = MaterialTheme.colorScheme.surface,
-                uncheckedTrackColor = PrimaryBlue,
-                checkedBorderColor = MaterialTheme.colorScheme.surface,
-                uncheckedBorderColor = MaterialTheme.colorScheme.surface
-            )
         }
         if (showDivider) {
             HorizontalDivider(

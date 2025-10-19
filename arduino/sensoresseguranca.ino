@@ -37,7 +37,7 @@ void loop() {
   int nivelgas = analogRead(sensorgas);
   // informando o nível de gás e se é normal ou não
   Serial.println((String) "Nível de gás: " + nivelgas);
-  if (nivelgas > 200) {
+  if (nivelgas > 300) {
     Serial.println("Nível anormal de gás.");
   } else {
     Serial.println("Nível normal de gás.");
@@ -53,12 +53,12 @@ void loop() {
   // leitura do sensor de água e condicional para ver se é a umidade normal ou se há alagamento
   int nivelagua = analogRead(sensoragua);
   Serial.println((String) "Nível de água: " +nivelagua);
-  if (nivelagua > 700) {
+  if (nivelagua > 600) {
     Serial.println("Alagamento detectado");
   } else {
     Serial.println("Sem alagamento");
   };
 
   Serial.println(" ");
-  delay(2000);
+  delay(5000);
 }

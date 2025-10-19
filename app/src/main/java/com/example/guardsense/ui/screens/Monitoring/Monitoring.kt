@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -17,6 +18,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DropdownMenu
@@ -43,6 +45,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.guardsense.R
 import com.example.guardsense.ui.components.Header
+import com.example.guardsense.ui.components.MonitoringRow
 import com.example.guardsense.ui.components.SettingsRow
 import com.example.guardsense.ui.theme.PrimaryBlue
 
@@ -58,17 +61,22 @@ fun Monitoring(navController: NavController) {
             Header()
         }
 
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            item {
-                CameraFeedCard()
-            }
-            item {
-                SensorsSection()
+        Row(Modifier.padding(bottom = 48.dp)) {
+            LazyColumn(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                item {
+                    CameraFeedCard()
+                }
+                item {
+                    SensorsSection()
+                }
+                item {
+                    Spacer(modifier = Modifier.height(35.dp)) // Add space at the bottom
+                }
             }
         }
     }
@@ -153,7 +161,7 @@ fun SensorsSection() {
 
     Card(
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
     ) {
         Column {
@@ -167,7 +175,7 @@ fun SensorsSection() {
             ) {
                 Text(text = "Sensores da casa", fontSize = 18.sp, fontWeight = FontWeight.Bold, color = PrimaryBlue)
                 Icon(
-                    imageVector = Icons.Default.ArrowDropDown,
+                    imageVector = if (expanded) Icons.Default.ArrowDropUp else Icons.Default.ArrowDropDown,
                     contentDescription = if (expanded) "Collapse" else "Expand",
                     tint = PrimaryBlue,
                     modifier = Modifier
@@ -177,20 +185,30 @@ fun SensorsSection() {
             // Conteúdo do dropdown
             AnimatedVisibility(visible = expanded) {
                 Column(modifier = Modifier.padding(bottom = 8.dp)) {
-                    SettingsRow(
-                        text = "Sensor de presença",
+                    MonitoringRow(
+                        text = "Temperatura: 29 ºC",
                         textColor = PrimaryBlue,
-                        icon = R.drawable.ic_logo_mini
+                        icon = R.drawable.ic_thermometer
                     )
-                    SettingsRow(
-                        text = "Sensor de gás",
+                    MonitoringRow(
+                        text = "Umidade do ar: 60%",
                         textColor = PrimaryBlue,
-                        icon = R.drawable.ic_logo_mini
+                        icon = R.drawable.ic_humiditydrop
                     )
-                    SettingsRow(
-                        text = "Sensor de alagamento",
+                    MonitoringRow(
+                        text = "Nível de gás no ar: Normal",
                         textColor = PrimaryBlue,
-                        icon = R.drawable.ic_logo_mini,
+                        icon = R.drawable.ic_humidity
+                    )
+                    MonitoringRow(
+                        text = "Presença detectada: Não",
+                        textColor = PrimaryBlue,
+                        icon = R.drawable.ic_presence
+                    )
+                    MonitoringRow(
+                        text = "Alagamento detectado: Não",
+                        textColor = PrimaryBlue,
+                        icon = R.drawable.ic_flood,
                         showDivider = false
                     )
                 }
