@@ -34,12 +34,13 @@ fun HomeContentCard() {
 fun StatusContainersGrid() {
     Column(
         modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+        verticalArrangement = Arrangement.spacedBy(25.dp)
     ) {
         // Primeira linha - dois containers lado a lado
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(13.dp)
+            
         ) {
             StatusContainerTopTitle(
                 title = "Nível de gás",
@@ -49,7 +50,7 @@ fun StatusContainersGrid() {
                 valueColor = GreenSuccess,
                 iconRes = R.drawable.ic_humidity,
                 modifier = Modifier.weight(1f),
-                height = 110.dp
+                height = 100.dp
             )
 
             StatusContainerTopTitle(
@@ -60,7 +61,7 @@ fun StatusContainersGrid() {
                 valueColor = GreenSuccess,
                 iconRes = R.drawable.ic_drop,
                 modifier = Modifier.weight(1f),
-                height = 110.dp
+                height = 100.dp
             )
         }
 
@@ -82,7 +83,7 @@ fun StatusContainersGrid() {
             value = "Não",
             backgroundColor = PrimaryBlue,
             titleColor = White,
-            valueColor = Orange,
+            valueColor = GreenSuccess,
             iconRes = R.drawable.ic_presence,
             height = 95.dp,
             cornerRadius = 20.dp
@@ -160,7 +161,7 @@ fun StatusContainerHorizontal(
     valueColor: Color,
     iconRes: Int,
     modifier: Modifier = Modifier,
-    height: Dp = 80.dp,
+    height: Dp = 70.dp,
     cornerRadius: Dp = 20.dp
 ) {
     Box(

@@ -19,14 +19,17 @@ import com.example.guardsense.ui.components.MainTemperatureContainer
 
 @Composable
 fun Dashboard(navController: NavController) {
-    Box(modifier = Modifier.fillMaxSize()) {
-        // Imagem de fundo cobrindo TUDO
-        Image(
-            painter = painterResource(id = R.drawable.ic_background_home),
-            contentDescription = "Background",
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
-        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.systemBars)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_background_home),
+                contentDescription = "Background",
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
 
         Column(
             modifier = Modifier
@@ -37,7 +40,6 @@ fun Dashboard(navController: NavController) {
             Spacer(modifier = Modifier.height(35.dp))
 
             MainTemperatureContainer()
-
 
             HomeContentCard()
 

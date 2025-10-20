@@ -34,8 +34,9 @@ fun MainTemperatureContainer() {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 25.dp)
+            .padding(vertical = 15.dp)
             .background(MaterialTheme.colorScheme.primaryContainer, RoundedCornerShape(16.dp))
-            .padding(20.dp)
+            .padding(15.dp)
     ) {
         Column(
             modifier = Modifier.fillMaxWidth()
@@ -44,12 +45,12 @@ fun MainTemperatureContainer() {
             Text(
                 text = "Temperatura média da casa",
                 fontFamily = ralewayFont,
-                fontSize = 16.sp,
+                fontSize = 14.sp,
                 color = PrimaryBlue,
                 fontWeight = FontWeight.Medium
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(4.dp))
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -61,7 +62,7 @@ fun MainTemperatureContainer() {
                     modifier = Modifier.size(55.dp)
                 )
 
-                Spacer(modifier = Modifier.width(10.dp))
+                Spacer(modifier = Modifier.width(8.dp))
 
                 Text(
                     text = "27 °C",
@@ -75,49 +76,47 @@ fun MainTemperatureContainer() {
             Text(
                 text = "Histórico",
                 fontFamily = ralewayFont,
-                fontSize = 16.sp,
-                color = TextDark,
+                fontSize = 14.sp,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
                 fontWeight = FontWeight.Bold
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(2.dp))
 
             // Linha do histórico
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                HistoryItem("27 °C", "Seg")
-                HistoryItem("27 °C", "Ter")
-                HistoryItem("27 °C", "Qua")
-                HistoryItem("27 °C", "Qui")
-                HistoryItem("27 °C", "Sex")
+                HistoryItem("Seg", "27 °C")
+                HistoryItem("Ter","27 °C")
+                HistoryItem("Qua", "27 °C")
+                HistoryItem("Qui", "27 °C")
+                HistoryItem("Sex", "27 °C")
             }
         }
     }
 }
 
 @Composable
-fun HistoryItem(temperature: String, day: String) {
+fun HistoryItem(day: String, temperature: String) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.width(50.dp)
     ) {
         Text(
-            text = temperature,
-            fontSize = 18.sp,
-            color = MaterialTheme.colorScheme.onPrimaryContainer,
-            fontWeight = FontWeight.Bold
-        )
-
-        Spacer(modifier = Modifier.height(4.dp))
-
-        Text(
             text = day,
             fontFamily = ralewayFont,
-            fontSize = 15.sp,
+            fontSize = 14.sp,
             color = MaterialTheme.colorScheme.onPrimaryContainer,
             fontWeight = FontWeight.Medium
+        )
+
+        Text(
+            text = temperature,
+            fontSize = 15.sp,
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            fontWeight = FontWeight.Bold
         )
     }
 }
