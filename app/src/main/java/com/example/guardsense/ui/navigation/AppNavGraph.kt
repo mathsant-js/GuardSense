@@ -15,7 +15,6 @@ import com.example.guardsense.ui.screens.profile.Profile
 import com.example.guardsense.ui.screens.register.Register1
 import com.example.guardsense.ui.screens.register.Register2
 import com.example.guardsense.ui.screens.register.Register3
-
 @Composable
 fun AppNavGraph(
     navController: NavHostController,

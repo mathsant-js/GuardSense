@@ -68,8 +68,8 @@ fun Settings(navController: NavController) {
                         Column(modifier = Modifier.padding(vertical = 8.dp)) {
                             SettingsRow(text = "Sensor de presença", icon = R.drawable.ic_presence, textColor = PrimaryBlue)
                             SettingsRow(text = "Sensor de gás", icon = R.drawable.ic_humidity, textColor = PrimaryBlue)
-                            SettingsRow(text = "Sensor de temperatura", icon = R.drawable.ic_thermometer, textColor = PrimaryBlue)
-                            SettingsRow(text = "Sensor de umidade", icon = R.drawable.ic_humiditydrop, textColor = PrimaryBlue)
+                            SettingsRow(text = "Sensor de temp./umid.", icon = R.drawable.ic_thermometer, textColor = PrimaryBlue)
+                            SettingsRow(text = "Sensor de vibração", icon = R.drawable.ic_vibration, textColor = PrimaryBlue)
                             SettingsRow(text = "Sensor de alagamento", icon = R.drawable.ic_flood, showDivider = false, textColor = PrimaryBlue)
                         }
                     }

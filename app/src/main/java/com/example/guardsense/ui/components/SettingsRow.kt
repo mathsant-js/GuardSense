@@ -6,13 +6,20 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.guardsense.R
 import com.example.guardsense.ui.theme.PrimaryBlue
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
 fun SettingsRow(
@@ -29,7 +37,15 @@ fun SettingsRow(
     icon: Int = R.drawable.ic_logo_mini,
     showDivider: Boolean = true
 ) {
-    val isChecked = remember { mutableStateOf(false) }
+    val firebaseFieldName: String = getFirebaseFieldName(text)
+
+    var switchState by remember { mutableStateOf(false) }
+
+    LaunchedEffect(firebaseFieldName) {
+        getFirebaseValue(firebaseFieldName) { fetchedValue ->
+            switchState = fetchedValue
+        }
+    }
 
     Column {
         Row(
@@ -54,13 +70,31 @@ fun SettingsRow(
                 )
             }
             Switch(
-                checked = isChecked,
-                checkedThumbColor = MaterialTheme.colorScheme.surface,
-                checkedTrackColor = PrimaryBlue,
-                uncheckedThumbColor = MaterialTheme.colorScheme.surface,
-                uncheckedTrackColor = PrimaryBlue,
-                checkedBorderColor = MaterialTheme.colorScheme.surface,
-                uncheckedBorderColor = MaterialTheme.colorScheme.surface
+                checked = switchState,
+                onCheckedChange = { isChecked ->
+                    switchState = isChecked
+                    switchFirebaseValue(firebaseFieldName)
+                },
+                colors = SwitchDefaults.colors(
+                    checkedThumbColor = MaterialTheme.colorScheme.surface,
+                    checkedTrackColor = PrimaryBlue,
+                    checkedBorderColor = MaterialTheme.colorScheme.surface,
+                    checkedIconColor = PrimaryBlue,
+                    uncheckedThumbColor = MaterialTheme.colorScheme.surface,
+                    uncheckedTrackColor = PrimaryBlue,
+                    uncheckedBorderColor = MaterialTheme.colorScheme.surface
+                ),
+                thumbContent = if (switchState) {
+                    {
+                        Icon(
+                            imageVector = Icons.Filled.Check,
+                            contentDescription = null,
+                            modifier = Modifier.size(SwitchDefaults.IconSize),
+                        )
+                    }
+                } else {
+                    null
+                }
             )
         }
         if (showDivider) {
@@ -70,5 +104,72 @@ fun SettingsRow(
                 color = textColor
             )
         }
+    }
+}
+
+fun getFirebaseFieldName(
+    rowText: String
+): String {
+    val fieldName: String = when (rowText) {
+        "Sensor de presença" -> "presenceSensorEnabled"
+        "Sensor de gás" -> "gasSensorEnabled"
+        "Sensor de temp./umid." -> "tempHumiditySensorEnabled"
+        "Sensor de vibração" -> "vibrationSensorEnabled"
+        "Sensor de alagamento" -> "waterSensorEnabled"
+        "Tranca da porta" -> "doorLockEnabled"
+        "Desbloqueio por digital" -> "fingerPrintSensorEnabled"
+        "Desbloqueio por rec. facial" -> "facialRecognitionEnabled"
+        "Desbloqueio por senha" -> "keyPadEnabled"
+        else -> "naofaznada"
+    }
+
+    return fieldName;
+}
+
+fun getFirebaseValue(
+    fieldName: String,
+    onSuccess: (Boolean) -> Unit
+) {
+    if (fieldName != "naofaznada") {
+        val db = FirebaseFirestore.getInstance()
+        val docRef = db.collection("Sensors").document("testsensors").collection("sensorstate")
+            .document("testsensor")
+
+        docRef.get()
+            .addOnSuccessListener { documentSnapshot ->
+                val value = if (documentSnapshot.exists()) {
+                    documentSnapshot.getBoolean(fieldName) ?: false // Default to false if not found
+                } else {
+                    false // Default to false if document doesn't exist
+                }
+                onSuccess(value)
+            }
+            .addOnFailureListener { e ->
+                println("Error getting document: $e")
+                onSuccess(false) // Handle failure by returning a default value
+            }
+    }
+}
+
+fun switchFirebaseValue(
+    fieldName: String
+) {
+    if (fieldName != "naofaznada") {
+        val db = FirebaseFirestore.getInstance()
+
+        val docRef = db.collection("Sensors").document("testsensors").collection("sensorstate").document("testsensor")
+
+        docRef.get()
+            .addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    val currentValue = documentSnapshot.getBoolean(fieldName) ?: false // Default to false if not found
+                    val newValue = !currentValue
+
+                    docRef.update(fieldName, newValue)
+                }
+            }
+            .addOnFailureListener { e ->
+                println("Error getting document: $e")
+            }
     }
 }
