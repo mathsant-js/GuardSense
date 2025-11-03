@@ -46,7 +46,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.guardsense.R
 import com.example.guardsense.ui.components.Header
 import com.example.guardsense.ui.components.MonitoringRow
-import com.example.guardsense.ui.components.SettingsRow
 import com.example.guardsense.ui.theme.PrimaryBlue
 
 @Composable
@@ -186,27 +185,27 @@ fun SensorsSection() {
             AnimatedVisibility(visible = expanded) {
                 Column(modifier = Modifier.padding(bottom = 8.dp)) {
                     MonitoringRow(
-                        text = "Temperatura: 29 ºC",
+                        field = "temperatureReading",
                         textColor = PrimaryBlue,
                         icon = R.drawable.ic_thermometer
                     )
                     MonitoringRow(
-                        text = "Umidade do ar: 60%",
+                        field = "airHumidityReading",
                         textColor = PrimaryBlue,
                         icon = R.drawable.ic_humiditydrop
                     )
                     MonitoringRow(
-                        text = "Nível de gás no ar: Normal",
+                        field = "gasReading",
                         textColor = PrimaryBlue,
                         icon = R.drawable.ic_humidity
                     )
                     MonitoringRow(
-                        text = "Presença detectada: Não",
+                        field = "presenceReading",
                         textColor = PrimaryBlue,
                         icon = R.drawable.ic_presence
                     )
                     MonitoringRow(
-                        text = "Alagamento detectado: Não",
+                        field = "waterLevelReading",
                         textColor = PrimaryBlue,
                         icon = R.drawable.ic_flood,
                         showDivider = false
