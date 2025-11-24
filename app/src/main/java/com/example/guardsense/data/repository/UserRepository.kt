@@ -12,7 +12,7 @@ import java.util.Date
 
 class UserRepository(
     private val auth: FirebaseAuth = Firebase.auth,
-    private val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
+    val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 ) {
     suspend fun registerWithEmail(
         name: String,
