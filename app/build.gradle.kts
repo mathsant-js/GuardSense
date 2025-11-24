@@ -58,6 +58,10 @@ dependencies {
     // Necessário para salvar estado
     implementation ("androidx.compose.runtime:runtime-saveable")
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.auth)
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
