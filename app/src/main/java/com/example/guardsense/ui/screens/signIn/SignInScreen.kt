@@ -2,6 +2,7 @@ package com.example.guardsense.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
@@ -15,6 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -22,10 +24,9 @@ import com.example.guardsense.R
 import com.example.guardsense.ui.navigation.Routes
 import com.example.guardsense.ui.theme.DarkBlue
 import com.example.guardsense.ui.theme.PrimaryBlue
+import com.example.guardsense.ui.theme.ralewayFont
 
-val ralewayFont = FontFamily(
-    Font(R.font.raleway_semibold, FontWeight.SemiBold)
-)
+
 @Composable
 fun BackgroundContainer(content: @Composable BoxScope.() -> Unit) {
     Box(
@@ -37,22 +38,41 @@ fun BackgroundContainer(content: @Composable BoxScope.() -> Unit) {
                 )
             ),
         contentAlignment = Alignment.Center
-    ) { content()
+    ) {
+        content()
     }
 }
+
 @Composable
 fun SignInScreen(navController: NavController) {
     BackgroundContainer {
+
+
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp),
             modifier = Modifier.padding(horizontal = 40.dp)
         ) {
+
+
             Image(
                 painter = painterResource(id = R.drawable.ic_logo),
                 contentDescription = "Logo",
-                modifier = Modifier.size(160.dp).padding(bottom = 20.dp)
+                modifier = Modifier
+                    .size(160.dp)
+                    .padding(bottom = 20.dp)
             )
+
+            Text(
+                text = "Escolha um método de cadastro abaixo",
+                color = Color.White.copy(alpha = 0.8f),
+                fontSize = 15.sp,
+                fontFamily = ralewayFont
+            )
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+
 
             Button(
                 onClick = { navController.navigate(Routes.Register1) },
@@ -73,7 +93,8 @@ fun SignInScreen(navController: NavController) {
                     )
                 }
             }
-            // Divisor "Ou"
+
+            // DIVISOR
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
@@ -98,7 +119,7 @@ fun SignInScreen(navController: NavController) {
                 )
             }
 
-            // Botão Google
+            // GOOGLE
             Button(
                 onClick = { /* Google */ },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White),
@@ -127,7 +148,7 @@ fun SignInScreen(navController: NavController) {
                 }
             }
 
-            // Botão Microsoft
+            // MICROSOFT
             Button(
                 onClick = { /* Microsoft */ },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.White),
@@ -154,6 +175,20 @@ fun SignInScreen(navController: NavController) {
                         modifier = Modifier.padding(start = 12.dp)
                     )
                 }
+            }
+
+            // Criar conta
+            TextButton(
+                onClick = { navController.navigate(Routes.LogInScreen) }
+            ) {
+                Text(
+                    text = "Já possuo uma conta",
+                    color = Color.White,
+                    textDecoration = TextDecoration.Underline,
+                    fontFamily = ralewayFont,
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 16.sp
+                )
             }
         }
     }

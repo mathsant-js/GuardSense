@@ -14,7 +14,7 @@ object Routes {
     const val DoorManagement = "doorManagement"
     const val Profile = "profile"
 
-    const val EntryScreen = "EntryScreen"
+    const val EntryScreen = "entry"
 
     const val Settings = "settings"
 }

@@ -43,9 +43,9 @@ import com.example.guardsense.R
 import com.example.guardsense.ui.components.Header
 import com.example.guardsense.ui.components.SettingsProfile
 import com.example.guardsense.ui.navigation.Routes
-import com.example.guardsense.ui.ralewayFont
 import com.example.guardsense.ui.theme.GuardSenseTheme
 import com.example.guardsense.ui.theme.PrimaryBlue
+import com.example.guardsense.ui.theme.ralewayFont
 
 @Composable
 fun Profile(

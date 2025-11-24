@@ -23,10 +23,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.guardsense.R
-import com.example.guardsense.ui.ralewayFont
 import com.example.guardsense.ui.theme.Orange
 import com.example.guardsense.ui.theme.PrimaryBlue
 import com.example.guardsense.ui.theme.TextDark
+import com.example.guardsense.ui.theme.ralewayFont
 
 @Composable
 fun MainTemperatureContainer() {

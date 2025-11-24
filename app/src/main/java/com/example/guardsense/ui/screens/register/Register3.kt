@@ -34,9 +34,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.guardsense.ui.BackgroundContainer
 import com.example.guardsense.ui.components.Logo
 import com.example.guardsense.ui.components.navigation.TextButtonBack
-import com.example.guardsense.ui.ralewayFont
 import com.example.guardsense.ui.theme.LightBlue
 import com.example.guardsense.ui.theme.LittleDarkBlue
+import com.example.guardsense.ui.theme.ralewayFont
 
 @Composable
 fun Register3(navController: NavController) {

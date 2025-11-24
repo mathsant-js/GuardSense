@@ -1,6 +1,8 @@
 package com.example.guardsense.ui.screens.EntryScreen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -21,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.Font
@@ -38,10 +41,7 @@ import com.example.guardsense.ui.components.navigation.ButtonNavigation
 import com.example.guardsense.ui.navigation.Routes
 import com.example.guardsense.ui.theme.DarkBlue
 import com.example.guardsense.ui.theme.PrimaryBlue
-
-val ralewayFont = FontFamily(
-    Font(R.font.raleway_semibold, FontWeight.SemiBold)
-)
+import com.example.guardsense.ui.theme.ralewayFont
 
 @Composable
 fun BackgroundContainer(content: @Composable BoxScope.() -> Unit) {
@@ -54,8 +54,7 @@ fun BackgroundContainer(content: @Composable BoxScope.() -> Unit) {
                 )
             ),
         contentAlignment = Alignment.Center
-    ) { content()
-    }
+    ) { content() }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -67,13 +66,38 @@ fun EntryScreen(navController: NavController) {
     BackgroundContainer {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth(0.8f)
+            modifier = Modifier
+                .fillMaxWidth(0.8f)
+                .padding(top = 10.dp)
         ) {
             Logo(140, 30)
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Campos de texto
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 6.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_arrow_left),
+                    contentDescription = "Voltar",
+                    modifier = Modifier
+                        .padding(end = 6.dp)
+                        .clickable { navController.popBackStack() }
+                )
+                Text(
+                    text = "Voltar",
+                    color = Color.White,
+                    fontSize = 16.sp,
+                    fontFamily = ralewayFont,
+                    fontWeight = FontWeight.SemiBold,
+                    modifier = Modifier.clickable { navController.popBackStack() }
+                )
+            }
+
             Column(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier.fillMaxWidth()
@@ -83,9 +107,8 @@ fun EntryScreen(navController: NavController) {
                 Column {
                     OutlinedTextFieldCommom("Senha", type = "password", senha.value, { senha.value = it })
 
-                    // "Esqueci a minha senha"
                     TextButton(
-                        onClick = { /* TODO: Navegar para tela de recuperação de senha */ },
+                        onClick = { },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 1.dp)
@@ -103,9 +126,7 @@ fun EntryScreen(navController: NavController) {
                                             fontWeight = FontWeight.SemiBold,
                                             fontSize = 14.sp
                                         )
-                                    ) {
-                                        append("Esqueci a minha senha")
-                                    }
+                                    ) { append("Esqueci a minha senha") }
                                 },
                                 color = Color.White
                             )
@@ -114,7 +135,6 @@ fun EntryScreen(navController: NavController) {
                 }
             }
 
-            // Botão Entrar
             Row(
                 Modifier
                     .fillMaxWidth()
@@ -122,22 +142,6 @@ fun EntryScreen(navController: NavController) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 ButtonNavigation("Entrar", navController, Routes.Dashboard)
-            }
-
-            // Botão "Não tenho conta" - MUITO mais próximo do botão Entrar
-            TextButton(
-                onClick = { navController.navigate(Routes.Register1) },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 2.dp)
-            ) {
-                Text(
-                    text = "Não tenho conta",
-                    color = Color.White,
-                    fontFamily = ralewayFont,
-                    fontWeight = FontWeight.SemiBold,
-                    fontSize = 14.sp
-                )
             }
         }
     }
