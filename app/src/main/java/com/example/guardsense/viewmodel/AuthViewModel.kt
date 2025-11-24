@@ -28,6 +28,36 @@ class AuthViewModel(
     var uiState by mutableStateOf<AuthState>(AuthState.Idle)
         private set
 
+    init {
+        checkUserLoggedIn()
+    }
+
+    private fun checkUserLoggedIn() {
+        viewModelScope.launch {
+            val firebaseUser = Firebase.auth.currentUser
+            if (firebaseUser != null) {
+                uiState = AuthState.Loading
+                try {
+                    val userDoc = repository.firestore.collection("Users").document(firebaseUser.uid).get().await()
+                    if (userDoc.exists()) {
+                        val user = userDoc.toObject(User::class.java)!!
+                        uiState = AuthState.Success(user)
+                    } else {
+                        // This may happen if the user is authenticated but their data was deleted or not created.
+                        // We sign them out to force a clean login.
+                        uiState = AuthState.Error("User data is missing. Please log in again.")
+                        Firebase.auth.signOut()
+                    }
+                } catch (e: Exception) {
+                    uiState = AuthState.Error("Failed to load user data.")
+                    Firebase.auth.signOut()
+                }
+            } else {
+                uiState = AuthState.Idle
+            }
+        }
+    }
+
     fun register(nome: String, email: String, cpf: String, address: String, telephone: String, birthDate: Date, password: String) {
         viewModelScope.launch {
             uiState = AuthState.Loading
