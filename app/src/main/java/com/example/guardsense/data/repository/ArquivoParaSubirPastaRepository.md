@@ -1,1 +1,0 @@
-### Classes que unem os dados Firebase/local
