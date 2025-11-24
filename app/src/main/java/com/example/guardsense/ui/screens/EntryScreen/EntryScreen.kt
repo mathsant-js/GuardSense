@@ -1,4 +1,4 @@
-package com.example.guardsense.ui.screens.LogIn
+package com.example.guardsense.ui.screens.EntryScreen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -60,7 +60,7 @@ fun BackgroundContainer(content: @Composable BoxScope.() -> Unit) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LogInScreen(navController: NavController) {
+fun EntryScreen(navController: NavController) {
     val email = remember { mutableStateOf("") }
     val senha = remember { mutableStateOf("") }
 
