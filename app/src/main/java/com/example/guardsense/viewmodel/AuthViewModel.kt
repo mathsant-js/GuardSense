@@ -114,4 +114,9 @@ class AuthViewModel(
                 uiState = AuthState.Error(e.message ?: "Erro")
             }
     }
+
+    fun logout() {
+        Firebase.auth.signOut()
+        uiState = AuthState.Idle
+    }
 }
