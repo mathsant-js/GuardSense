@@ -1,3 +1,4 @@
+
 package com.example.guardsense.ui.navigation
 
 import androidx.compose.foundation.layout.Box
@@ -14,6 +15,7 @@ import androidx.navigation.compose.composable
 import com.example.guardsense.ui.SignInScreen
 import com.example.guardsense.ui.screens.Dashboard.Dashboard
 import com.example.guardsense.ui.screens.DoorManagement.DoorManagement
+import com.example.guardsense.ui.screens.EntryScreen.EntryScreen
 import com.example.guardsense.ui.screens.LogIn.LogInScreen
 import com.example.guardsense.ui.screens.Monitoring.Monitoring
 import com.example.guardsense.ui.screens.Settings.Settings
@@ -58,21 +60,19 @@ fun AppNavGraph(
             }
         }
     }
-
     Box(modifier = Modifier.fillMaxSize()) {
         NavHost(
             navController = navController,
-            // The start destination is now the LogInScreen.
             startDestination = Routes.LogInScreen
         ) {
             composable(Routes.SignInScreen) {
                 SignInScreen(navController)
             }
             composable(Routes.Register1) {
-                Register1(navController)
+                Register1(navController, authViewModel)
             }
             composable(Routes.Register2) {
-                Register2(navController)
+                Register2(navController, authViewModel)
             }
             composable(Routes.Register3) {
                 Register3(navController)
@@ -95,9 +95,10 @@ fun AppNavGraph(
             composable(Routes.Settings) {
                 Settings(navController)
             }
+            composable(Routes.EntryScreen) {
+                EntryScreen(navController, authViewModel)
+            }
         }
-
-        // If the state is loading, show a circular progress indicator in the center of the screen.
         if (authState == AuthState.Loading) {
             CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }

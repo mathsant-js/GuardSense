@@ -28,6 +28,35 @@ class AuthViewModel(
     var uiState by mutableStateOf<AuthState>(AuthState.Idle)
         private set
 
+    var name by mutableStateOf("")
+        private set
+
+    var email by mutableStateOf("")
+        private set
+
+    var cpf by mutableStateOf("")
+        private set
+
+    var address by mutableStateOf("")
+        private set
+
+    var telephone by mutableStateOf("")
+        private set
+
+    var birthDate by mutableStateOf(Date(2000, 1, 1))
+        private set
+
+    var password by mutableStateOf("")
+        private set
+
+    fun updateName(v: String) { name = v}
+    fun updateEmail(v: String) { email = v}
+    fun updateCPF(v: String) { cpf = v}
+    fun updateAddress(v: String) { address = v}
+    fun updateTelephone(v: String) { telephone = v}
+    fun updateBirthDate(v: Date) { birthDate = v}
+    fun updatePassword(v: String) { password = v}
+
     init {
         checkUserLoggedIn()
     }
@@ -49,7 +78,7 @@ class AuthViewModel(
                         Firebase.auth.signOut()
                     }
                 } catch (e: Exception) {
-                    uiState = AuthState.Error("Failed to load user data.")
+                    uiState = AuthState.Error("Failed to load user data. ${e.message}")
                     Firebase.auth.signOut()
                 }
             } else {
@@ -58,11 +87,11 @@ class AuthViewModel(
         }
     }
 
-    fun register(nome: String, email: String, cpf: String, address: String, telephone: String, birthDate: Date, password: String) {
+    fun register() {
         viewModelScope.launch {
             uiState = AuthState.Loading
             val res = repository.registerWithEmail(
-                nome,
+                name,
                 email,
                 cpf,
                 address,

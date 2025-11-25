@@ -26,8 +26,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
@@ -42,6 +40,7 @@ import com.example.guardsense.ui.navigation.Routes
 import com.example.guardsense.ui.theme.DarkBlue
 import com.example.guardsense.ui.theme.PrimaryBlue
 import com.example.guardsense.ui.theme.ralewayFont
+import com.example.guardsense.viewmodel.AuthViewModel
 
 @Composable
 fun BackgroundContainer(content: @Composable BoxScope.() -> Unit) {
@@ -59,7 +58,7 @@ fun BackgroundContainer(content: @Composable BoxScope.() -> Unit) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EntryScreen(navController: NavController) {
+fun EntryScreen(navController: NavController, viewModel: AuthViewModel) {
     val email = remember { mutableStateOf("") }
     val senha = remember { mutableStateOf("") }
 
@@ -141,7 +140,7 @@ fun EntryScreen(navController: NavController) {
                     .padding(top = 8.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                ButtonNavigation("Entrar", navController, Routes.Dashboard)
+                ButtonNavigation("Entrar", onClick = { viewModel.login(email.value, senha.value) })
             }
         }
     }
