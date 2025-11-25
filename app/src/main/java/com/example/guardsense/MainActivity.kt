@@ -39,6 +39,7 @@ class MainActivity : ComponentActivity() {
                     "register2" -> false
                     "register3" -> false
                     "login" -> false
+                    "entry" -> false
                     else -> true
                 }
 

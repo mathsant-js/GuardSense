@@ -31,8 +31,8 @@ import com.example.guardsense.ui.components.InsideHeader
 import com.example.guardsense.ui.components.OutlinedTextFieldCommom
 import com.example.guardsense.ui.components.SettingsRow
 import com.example.guardsense.ui.components.Switch
-import com.example.guardsense.ui.ralewayFont
 import com.example.guardsense.ui.theme.PrimaryBlue
+import com.example.guardsense.ui.theme.ralewayFont
 
 @Composable
 fun DoorManagement(navController: NavController) {
