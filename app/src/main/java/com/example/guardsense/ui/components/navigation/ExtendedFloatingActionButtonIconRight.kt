@@ -21,9 +21,9 @@ import androidx.navigation.NavController
 import com.example.guardsense.ui.theme.ralewayFont
 
 @Composable
-fun ExtendedFloatingActionButtonIconRight(text: String, altText: String, color: Color, textColor: Color, navController: NavController, route: String) {
+fun ExtendedFloatingActionButtonIconRight(text: String, altText: String, color: Color, textColor: Color, onClick : () -> Unit) {
     ExtendedFloatingActionButton(
-        onClick = { navController.navigate(route) },
+        onClick = { onClick },
         containerColor = color,
         icon = {},
         text = {

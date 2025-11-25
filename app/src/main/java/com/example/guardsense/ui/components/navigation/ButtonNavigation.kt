@@ -17,9 +17,9 @@ import com.example.guardsense.ui.theme.PrimaryBlue
 import com.example.guardsense.ui.theme.ralewayFont
 
 @Composable
-fun ButtonNavigation(textButton: String, navController: NavController, route: String) {
+fun ButtonNavigation(textButton: String, onClick : () -> Unit) {
     Button(
-        onClick = { navController.navigate(route) },
+        onClick = { onClick },
         colors = ButtonDefaults.buttonColors(containerColor = PrimaryBlue),
         modifier = Modifier
             .fillMaxWidth()
