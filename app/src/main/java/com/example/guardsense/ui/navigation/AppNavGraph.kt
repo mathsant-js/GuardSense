@@ -1,4 +1,3 @@
-
 package com.example.guardsense.ui.navigation
 
 import androidx.compose.foundation.layout.Box
@@ -55,6 +54,15 @@ fun AppNavGraph(
                     }
                 }
             }
+
+            AuthState.NeedsEmailVerification -> {
+                navController.navigate(Routes.LogInScreen) {
+                    popUpTo(navController.graph.startDestinationId) {
+                        inclusive = true
+                    }
+                }
+            }
+
             AuthState.Loading -> {
                 // The loading indicator is shown globally below.
             }

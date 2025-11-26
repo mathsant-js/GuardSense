@@ -18,6 +18,7 @@ import java.util.Date
 sealed class AuthState {
     object Idle : AuthState()
     object Loading : AuthState()
+    object NeedsEmailVerification : AuthState()
     data class Success(val user: User) : AuthState()
     data class Error(val message: String) : AuthState()
 }
@@ -99,9 +100,11 @@ class AuthViewModel(
                 birthDate,
                 password
             )
-            uiState = if (res.isSuccess) AuthState.Success(res.getOrNull()!!) else AuthState.Error(
-                res.exceptionOrNull()?.message ?: "Erro"
-            )
+            uiState = if (res.isSuccess) {
+                AuthState.NeedsEmailVerification
+            } else {
+                AuthState.Error(res.exceptionOrNull()?.message ?: "Erro ao registrar.")
+            }
         }
     }
 
