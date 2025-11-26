@@ -23,7 +23,7 @@ import com.example.guardsense.ui.theme.ralewayFont
 @Composable
 fun ExtendedFloatingActionButtonIconRight(text: String, altText: String, color: Color, textColor: Color, onClick : () -> Unit) {
     ExtendedFloatingActionButton(
-        onClick = { onClick },
+        onClick = { onClick() },
         containerColor = color,
         icon = {},
         text = {
