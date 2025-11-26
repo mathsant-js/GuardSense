@@ -1,1 +1,0 @@
-### Pasta para salvar as preferências do usuário
