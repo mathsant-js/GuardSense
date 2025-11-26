@@ -40,7 +40,7 @@ class UserRepository(
             )
 
             firestore.collection("Users").document(firebaseUser.uid).set(user).await()
-
+            auth.signOut()
             Result.success(user)
         } catch (e: Exception) {
             Result.failure(e)
