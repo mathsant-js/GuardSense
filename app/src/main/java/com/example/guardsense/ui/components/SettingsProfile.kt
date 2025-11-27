@@ -1,5 +1,6 @@
 package com.example.guardsense.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,6 +21,7 @@ import com.example.guardsense.R
 
 @Composable
 fun SettingsProfile(
+    onClick : () -> Unit,
     text: String,
     textColor: Color = Color.White,
     icon: Int = R.drawable.ic_logo_mini,
@@ -29,6 +31,7 @@ fun SettingsProfile(
     Column {
         Row(
             modifier = Modifier
+                .clickable(onClick = onClick)
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically,

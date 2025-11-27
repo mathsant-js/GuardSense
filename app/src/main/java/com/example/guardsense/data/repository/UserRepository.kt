@@ -8,22 +8,29 @@ import com.google.firebase.auth.OAuthProvider
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
+import java.text.SimpleDateFormat
 import java.util.Date
+import java.util.Locale
 
 class UserRepository(
     private val auth: FirebaseAuth = Firebase.auth,
     val firestore: FirebaseFirestore = FirebaseFirestore.getInstance()
 ) {
+    private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+
     suspend fun registerWithEmail(
         name: String,
         email: String,
         cpf: String,
         address: String,
         telephone: String,
-        birthDate: Date,
+        birthDate: String,
         password: String
     ): Result<User> {
         return try {
+            val birthDate = dateFormat.parse(birthDate)
+                ?: return Result.failure(Exception("Data de nascimento inválida"))
+
             val result = auth.createUserWithEmailAndPassword(email, password).await()
             val firebaseUser = result.user!!
 

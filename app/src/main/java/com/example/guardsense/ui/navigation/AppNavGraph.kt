@@ -1,5 +1,7 @@
 package com.example.guardsense.ui.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
@@ -25,6 +27,7 @@ import com.example.guardsense.ui.screens.register.Register3
 import com.example.guardsense.viewmodel.AuthState
 import com.example.guardsense.viewmodel.AuthViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun AppNavGraph(
     navController: NavHostController,
@@ -98,7 +101,7 @@ fun AppNavGraph(
                 DoorManagement(navController)
             }
             composable(Routes.Profile) {
-                Profile(navController, onToggleTheme)
+                Profile(navController, authViewModel, onToggleTheme)
             }
             composable(Routes.Settings) {
                 Settings(navController)
