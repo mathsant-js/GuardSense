@@ -44,7 +44,7 @@ class AuthViewModel(
     var telephone by mutableStateOf("")
         private set
 
-    var birthDate by mutableStateOf(Date(2000, 1, 1))
+    var birthDate by mutableStateOf("")
         private set
 
     var password by mutableStateOf("")
@@ -55,7 +55,7 @@ class AuthViewModel(
     fun updateCPF(v: String) { cpf = v}
     fun updateAddress(v: String) { address = v}
     fun updateTelephone(v: String) { telephone = v}
-    fun updateBirthDate(v: Date) { birthDate = v}
+    fun updateBirthDate(v: String) { birthDate = v}
     fun updatePassword(v: String) { password = v}
 
     init {

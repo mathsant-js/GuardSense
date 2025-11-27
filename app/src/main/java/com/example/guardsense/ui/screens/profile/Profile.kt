@@ -37,6 +37,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.guardsense.R
@@ -46,10 +47,12 @@ import com.example.guardsense.ui.navigation.Routes
 import com.example.guardsense.ui.theme.GuardSenseTheme
 import com.example.guardsense.ui.theme.PrimaryBlue
 import com.example.guardsense.ui.theme.ralewayFont
+import com.example.guardsense.viewmodel.AuthViewModel
 
 @Composable
 fun Profile(
     navController: NavController,
+    viewModel: AuthViewModel,
     onToggleTheme: () -> Unit
 ) {
     Column(
@@ -97,7 +100,7 @@ fun Profile(
                     color = PrimaryBlue
                 )
             }
-            CardSettings()
+            CardSettings(viewModel)
         }
     }
 }
@@ -188,7 +191,7 @@ fun ButtonChangeTheme(onToggleTheme: () -> Unit) {
 }
 
 @Composable
-fun CardSettings() {
+fun CardSettings(viewModel: AuthViewModel) {
     Row {
         Column(
             modifier = Modifier.padding(vertical = 16.dp, horizontal = 5.dp),
@@ -200,21 +203,30 @@ fun CardSettings() {
             ) {
                 Column(modifier = Modifier.padding(vertical = 8.dp)) {
                     SettingsProfile(
+                        onClick = { /* Todo("Fazer ação para editar informações de usuário") */ },
                         text = "Editar informações",
                         textColor = PrimaryBlue,
                         icon = R.drawable.ic_edit
                     )
                     SettingsProfile(
+                        onClick = { /* Todo("Fazer ação para editar senha da conta") */ },
                         text = "Alterar senha da conta",
                         textColor = PrimaryBlue,
                         icon = R.drawable.ic_account_password
                     )
                     SettingsProfile(
+                        onClick = { /* Todo("Fazer ação para editar senha da tranca") */ },
                         text = "Alterar senha da tranca",
                         textColor = PrimaryBlue,
-                        icon = R.drawable.ic_keypad,
-                        showDivider = false
+                        icon = R.drawable.ic_keypad
                     )
+                    SettingsProfile(
+                        onClick = { viewModel.logout() },
+                        text = "Sair da Conta",
+                        textColor = PrimaryBlue,
+                        icon = R.drawable.ic_arrow_left,
+                        showDivider = false
+                    ) // -> Provisório
                 }
             }
         }
@@ -230,7 +242,8 @@ fun ProfilePreviewInteractive() {
     GuardSenseTheme(darkTheme = isDarkTheme) {
         Profile(
             navController = navController,
-            onToggleTheme = { isDarkTheme = !isDarkTheme } // alterna tema no preview
+            onToggleTheme = { isDarkTheme = !isDarkTheme }, // alterna tema no preview
+            viewModel = viewModel()
         )
     }
 }
