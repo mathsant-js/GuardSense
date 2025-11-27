@@ -23,10 +23,20 @@ sealed class AuthState {
     data class Error(val message: String) : AuthState()
 }
 
+sealed class ProfileState {
+    object Idle : ProfileState()
+    object Loading : ProfileState()
+    object Success : ProfileState()
+    data class Error(val message: String) : ProfileState()
+}
+
 class AuthViewModel(
     private val repository: UserRepository = UserRepository()
 ) : ViewModel() {
     var uiState by mutableStateOf<AuthState>(AuthState.Idle)
+        private set
+
+    var profileUiState by mutableStateOf<ProfileState>(ProfileState.Idle)
         private set
 
     var name by mutableStateOf("")
@@ -175,6 +185,23 @@ class AuthViewModel(
             .addOnFailureListener { e ->
                 uiState = AuthState.Error(e.message ?: "Erro")
             }
+    }
+
+    fun updatePasswordAccount(newPassword: String) {
+        viewModelScope.launch {
+            profileUiState = ProfileState.Loading
+            val result = repository.updatePassword(newPassword)
+            profileUiState = if (result.isSuccess) {
+                ProfileState.Success
+            }
+            else {
+                ProfileState.Error(result.exceptionOrNull()?.message ?: "Erro ao atualizar a senha.")
+            }
+        }
+    }
+
+    fun resetProfileState() {
+        profileUiState = ProfileState.Idle
     }
 
     fun logout() {
