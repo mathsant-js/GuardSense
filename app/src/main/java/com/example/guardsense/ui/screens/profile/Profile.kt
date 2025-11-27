@@ -56,11 +56,19 @@ fun Profile(
     onToggleTheme: () -> Unit
 ) {
     var showChangePasswordDialog by remember { mutableStateOf(false) }
+    var showUpdateInfoDialog by remember { mutableStateOf(false) }
 
     if (showChangePasswordDialog) {
         ChangePasswordDialog(
             authViewModel = viewModel,
             onDismiss = { showChangePasswordDialog = false }
+        )
+    }
+
+    if (showUpdateInfoDialog) {
+        UpdateInfoUser(
+            authViewModel = viewModel,
+            onDismiss = { showUpdateInfoDialog = false }
         )
     }
 
@@ -112,7 +120,8 @@ fun Profile(
             CardSettings(
                 navController = navController,
                 viewModel = viewModel,
-                onChangePasswordClick = { showChangePasswordDialog = true } 
+                onChangePasswordClick = { showChangePasswordDialog = true },
+                onUpdateInfoClick = { showUpdateInfoDialog = true }
             )
         }
     }
@@ -207,7 +216,8 @@ fun ButtonChangeTheme(onToggleTheme: () -> Unit) {
 fun CardSettings(
     navController: NavController,
     viewModel: AuthViewModel,
-    onChangePasswordClick: () -> Unit
+    onChangePasswordClick: () -> Unit,
+    onUpdateInfoClick: () -> Unit
 ) {
     Row {
         Column(
@@ -220,7 +230,7 @@ fun CardSettings(
             ) {
                 Column(modifier = Modifier.padding(vertical = 8.dp)) {
                     SettingsProfile(
-                        onClick = { /* Todo("Fazer ação para editar informações de usuário") */ },
+                        onClick = { onUpdateInfoClick() },
                         text = "Editar informações",
                         textColor = PrimaryBlue,
                         icon = R.drawable.ic_edit

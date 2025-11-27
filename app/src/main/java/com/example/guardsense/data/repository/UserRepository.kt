@@ -115,6 +115,24 @@ class UserRepository(
         }
     }
 
+    suspend fun updateUserInfo(name: String, cpf: String, address: String, telephone: String, birthDate: Date): Result<Unit> {
+        return try {
+            val uid = auth.currentUser?.uid ?: return Result.failure(Exception("Usuário não logado."))
+            val userDocRef = firestore.collection("Users").document(uid)
+            val updates = mapOf(
+                "name" to name,
+                "cpf" to cpf,
+                "address" to address,
+                "telephone" to telephone,
+                "birthDate" to birthDate
+            )
+            userDocRef.update(updates).await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
     fun getMicrosoftProviderBuilder(): OAuthProvider.Builder {
         return OAuthProvider.newBuilder("microsoft.com")
     }

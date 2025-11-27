@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.guardsense.data.model.User
 import com.example.guardsense.data.repository.UserRepository
 import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.auth
 import kotlinx.coroutines.launch
@@ -196,6 +197,19 @@ class AuthViewModel(
             }
             else {
                 ProfileState.Error(result.exceptionOrNull()?.message ?: "Erro ao atualizar a senha.")
+            }
+        }
+    }
+
+    fun updateUserInfo(name: String, cpf: String, address: String, telephone: String, birthDate: Date) {
+        viewModelScope.launch {
+            profileUiState = ProfileState.Loading
+            val result = repository.updateUserInfo(name, cpf, address, telephone, birthDate)
+            if (result.isSuccess) {
+                checkUserLoggedIn() // Refresh user data
+                profileUiState = ProfileState.Success
+            } else {
+                profileUiState = ProfileState.Error(result.exceptionOrNull()?.message ?: "Erro ao atualizar informações.")
             }
         }
     }
