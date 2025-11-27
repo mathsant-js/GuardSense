@@ -17,9 +17,9 @@ import com.example.guardsense.ui.theme.PrimaryBlue
 import com.example.guardsense.ui.theme.ralewayFont
 
 @Composable
-fun ButtonCommom(textButton: String) {
+fun ButtonCommom(textButton: String, onClick: () -> Unit) {
     Button(
-        onClick = {},
+        onClick = { onClick() },
         colors = ButtonDefaults.buttonColors(containerColor = PrimaryBlue),
         modifier = Modifier
             .fillMaxWidth()
@@ -39,5 +39,5 @@ fun ButtonCommom(textButton: String) {
 @Preview
 @Composable
 fun ButtonCommomPreview() {
-    ButtonCommom(textButton = "Concluído")
+    ButtonCommom(textButton = "Concluído", onClick = {})
 }

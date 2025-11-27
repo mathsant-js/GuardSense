@@ -1,5 +1,6 @@
 package com.example.guardsense.ui.screens.DoorManagement
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,18 +11,24 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.guardsense.R
@@ -32,11 +39,15 @@ import com.example.guardsense.ui.components.SettingsRow
 import com.example.guardsense.ui.components.Switch
 import com.example.guardsense.ui.theme.PrimaryBlue
 import com.example.guardsense.ui.theme.ralewayFont
+import com.example.guardsense.viewmodel.SensorState
+import com.example.guardsense.viewmodel.SensorViewModel
 
 @Composable
-fun DoorManagement(navController: NavController) {
+fun DoorManagement(navController: NavController, viewModel: SensorViewModel = viewModel()) {
     val checked = remember { mutableStateOf(false) }
-    val alterarSenhaTranca = remember { mutableStateOf("") }
+    var alterarSenhaTranca by remember { mutableStateOf("") }
+    val uiState = viewModel.uiState
+    val context = LocalContext.current
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -94,8 +105,8 @@ fun DoorManagement(navController: NavController) {
                 OutlinedTextFieldTranca(
                     "Redefinir a senha da tranca",
                     type = "numberlasttextfield",
-                    initialValue = alterarSenhaTranca.value,
-                    onValueChange = { alterarSenhaTranca.value = it }
+                    initialValue = alterarSenhaTranca,
+                    onValueChange = { alterarSenhaTranca = it }
                 )
             }
             Row(
@@ -110,8 +121,31 @@ fun DoorManagement(navController: NavController) {
                         end = 30.dp
                     )
             ) {
-                ButtonCommom(textButton = "Concluído")
+                ButtonCommom(
+                    textButton = "Concluído",
+                    onClick = { viewModel.updateKeypadCode(alterarSenhaTranca) })
             }
+
+            when (uiState) {
+                is SensorState.Loading -> {
+                    CircularProgressIndicator()
+                }
+                is SensorState.Success -> {
+                    LaunchedEffect(Unit) {
+                        Toast.makeText(context, "Senha atualizada com sucesso!", Toast.LENGTH_SHORT).show()
+                        viewModel.resetState()
+                    }
+                }
+                is SensorState.Error -> {
+                    val error = (uiState).message
+                    LaunchedEffect(error) {
+                        Toast.makeText(context, error, Toast.LENGTH_SHORT).show()
+                        viewModel.resetState()
+                    }
+                }
+                else -> {}
+            }
+
         }
         Row(
             horizontalArrangement = Arrangement.Center,
