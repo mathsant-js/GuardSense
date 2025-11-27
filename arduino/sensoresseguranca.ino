@@ -1,64 +1,120 @@
-// TCC Etec ZL - 3º Novotec Desenvolvimento de Sistemas Manhã - Henrique Macedo, Lucas Rosa, Matheus Santana
-
+#include <SoftwareSerial.h>
 #include <DHT.h>
-#include <Adafruit_Sensor.h>
+#include <ArduinoJson.h>
 
-// definição do pino e tipo para o DHT
-#define DHTPIN 3
+// definição os pinos
+#define PIN_PIR 2
+#define PIN_DHT 3
+#define PIN_GAS A0
+#define PIN_AGUA A1
+
 #define DHTTYPE DHT11
 
-// declarando o DHT
-DHT dht = DHT(DHTPIN, DHTTYPE);
+// serial para comunicação com o esp32cam. pino 10 - ligar no tx / pino 11 - ligar no rx
+SoftwareSerial espSerial(10, 11); 
 
-// definição dos pinos para os sensor - sensor de vazamento de gás, detector de presença/movimento e sensor de alagamento
-int sensorgas = 14;
-int presenca = 2;
-int sensoragua = 15;
+// iniciando o dht
+DHT dht(PIN_DHT, DHTTYPE);
+
+// variáveis de estado (ativado/desativado) para os sensores
+bool enGas = false;
+bool enPres = false;
+bool enTemp = false;
+bool enAgua = false;
 
 void setup() {
-  // inicializando o monitor serial e definindo pinos como input
   Serial.begin(9600);
-  pinMode(presenca, INPUT);
-  pinMode(sensoragua, INPUT);
-  // iniciando o DHT
+  espSerial.begin(115200);
+  
+  pinMode(PIN_PIR, INPUT);
   dht.begin();
+  
+  Serial.println("Aguardando comandos do ESP32...");
 }
 
 void loop() {
-  // lendo e exibindo a temperatura
-  Serial.print("Temperatura: ");
-  Serial.print(dht.readTemperature(), 0);
-  Serial.println(" °C");
-  // lendo e exibindo a umidade
-  Serial.print("Umidade: ");
-  Serial.println((String) dht.readHumidity() +"%");
+  // busca/verifica se o ESP32 enviou comandos
+  if (espSerial.available() > 0) {
+    String comando = espSerial.readStringUntil('\n');
+    comando.trim();
+    
+    // verificação do formato
+    if (comando.startsWith("<") && comando.endsWith(">")) {
+      // remoção os sinais < e >
+      comando = comando.substring(1, comando.length() - 1);
+      parseComandos(comando);
+      
+      // realizar as leituras
+      realizarLeiturasEEnviar();
+    }
+    // código para ver os dados do serial do esp32 no monitor do arduino
+    if (espSerial.available()) {
+      Serial.write(espSerial.read()); 
+    }
+  }
+}
 
-  // leitura e armazenamento do nível de gás
-  int nivelgas = analogRead(sensorgas);
-  // informando o nível de gás e se é normal ou não
-  Serial.println((String) "Nível de gás: " + nivelgas);
-  if (nivelgas > 300) {
-    Serial.println("Nível anormal de gás.");
+void parseComandos(String dados) {
+  // formato: gas,presenca,dht,agua (ex: 1,0,1,1); separa por vírgula
+  int index1 = dados.indexOf(',');
+  int index2 = dados.indexOf(',', index1 + 1);
+  int index3 = dados.indexOf(',', index2 + 1);
+
+  // pega os dados encontrados e converte pra int
+  enGas = dados.substring(0, index1).toInt();
+  enPres = dados.substring(index1 + 1, index2).toInt();
+  enTemp = dados.substring(index2 + 1, index3).toInt();
+  enAgua = dados.substring(index3 + 1).toInt();
+  
+  Serial.print("Config recebida - Gas:"); Serial.print(enGas);
+  Serial.print(" Pres:"); Serial.print(enPres);
+  Serial.print(" Temp:"); Serial.print(enTemp);
+  Serial.print(" Agua:"); Serial.println(enAgua);
+}
+
+void realizarLeiturasEEnviar() {
+  // cria documento JSON para enviar de volta
+  JsonDocument doc;
+
+  // dependendo se está ativado ou não, salva a leitura no json doc
+  if (enGas) {
+    doc["gasReading"] = analogRead(PIN_GAS);
   } else {
-    Serial.println("Nível normal de gás.");
+    doc["gasReading"] = 0;
   }
 
-  // detecta e informa presença
-  if (digitalRead(presenca) == HIGH) {
-    Serial.println("movimento detectado");
+  if (enPres) {
+    doc["presenceReading"] = digitalRead(PIN_PIR) == HIGH ? true : false;
   } else {
-    Serial.println("movimento não detectado");
-  };
+    doc["presenceReading"] = false;
+  }
 
-  // leitura do sensor de água e condicional para ver se é a umidade normal ou se há alagamento
-  int nivelagua = analogRead(sensoragua);
-  Serial.println((String) "Nível de água: " +nivelagua);
-  if (nivelagua > 600) {
-    Serial.println("Alagamento detectado");
+  if (enTemp) {
+    float h = dht.readHumidity();
+    float t = dht.readTemperature();
+    if (isnan(h) || isnan(t)) {
+      doc["airHumidityReading"] = 0;
+      doc["temperatureReading"] = 0;
+    } else {
+      doc["airHumidityReading"] = h;
+      doc["temperatureReading"] = t;
+    }
   } else {
-    Serial.println("Sem alagamento");
-  };
+    doc["airHumidityReading"] = 0;
+    doc["temperatureReading"] = 0;
+  }
 
-  Serial.println(" ");
-  delay(5000);
+  if (enAgua) {
+    doc["waterLevelReading"] = analogRead(PIN_AGUA);
+  } else {
+    doc["waterLevelReading"] = 0;
+  }
+
+  // serializa o json e envia para o ESP32
+  serializeJson(doc, espSerial);
+  espSerial.println();
+  
+  // debug no PC
+  serializeJson(doc, Serial);
+  Serial.println();
 }
