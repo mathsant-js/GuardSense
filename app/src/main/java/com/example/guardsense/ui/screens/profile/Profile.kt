@@ -55,6 +55,15 @@ fun Profile(
     viewModel: AuthViewModel,
     onToggleTheme: () -> Unit
 ) {
+    var showChangePasswordDialog by remember { mutableStateOf(false) }
+
+    if (showChangePasswordDialog) {
+        ChangePasswordDialog(
+            authViewModel = viewModel,
+            onDismiss = { showChangePasswordDialog = false }
+        )
+    }
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
@@ -100,7 +109,10 @@ fun Profile(
                     color = PrimaryBlue
                 )
             }
-            CardSettings(viewModel)
+            CardSettings(
+                viewModel = viewModel,
+                onChangePasswordClick = { showChangePasswordDialog = true } 
+            )
         }
     }
 }
@@ -191,7 +203,10 @@ fun ButtonChangeTheme(onToggleTheme: () -> Unit) {
 }
 
 @Composable
-fun CardSettings(viewModel: AuthViewModel) {
+fun CardSettings(
+    viewModel: AuthViewModel,
+    onChangePasswordClick: () -> Unit
+) {
     Row {
         Column(
             modifier = Modifier.padding(vertical = 16.dp, horizontal = 5.dp),
@@ -209,7 +224,7 @@ fun CardSettings(viewModel: AuthViewModel) {
                         icon = R.drawable.ic_edit
                     )
                     SettingsProfile(
-                        onClick = { /* Todo("Fazer ação para editar senha da conta") */ },
+                        onClick = { onChangePasswordClick() },
                         text = "Alterar senha da conta",
                         textColor = PrimaryBlue,
                         icon = R.drawable.ic_account_password

@@ -106,6 +106,15 @@ class UserRepository(
         }
     }
 
+    suspend fun updatePassword(newPassword: String): Result<Unit> {
+        return try {
+            auth.currentUser!!.updatePassword(newPassword).await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
     fun getMicrosoftProviderBuilder(): OAuthProvider.Builder {
         return OAuthProvider.newBuilder("microsoft.com")
     }
