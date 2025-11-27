@@ -120,10 +120,13 @@ fun getFirebaseFieldName(
         "Desbloqueio por digital" -> "fingerPrintSensorEnabled"
         "Desbloqueio por rec. facial" -> "facialRecognitionEnabled"
         "Desbloqueio por senha" -> "keyPadEnabled"
+        // Fields da tela de DoorManagement.kt
+        "Utilizar Sensor de Digital" -> "fingerPrintSensorEnabled"
+        "Reconhecimento Facial" -> "facialRecognitionEnabled"
         else -> "naofaznada"
     }
 
-    return fieldName;
+    return fieldName
 }
 
 fun getFirebaseValue(

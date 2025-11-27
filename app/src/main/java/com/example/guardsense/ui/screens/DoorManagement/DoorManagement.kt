@@ -18,7 +18,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -28,7 +27,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.guardsense.R
 import com.example.guardsense.ui.components.ButtonCommom
 import com.example.guardsense.ui.components.InsideHeader
-import com.example.guardsense.ui.components.OutlinedTextFieldCommom
+import com.example.guardsense.ui.components.OutlinedTextFieldTranca
 import com.example.guardsense.ui.components.SettingsRow
 import com.example.guardsense.ui.components.Switch
 import com.example.guardsense.ui.theme.PrimaryBlue
@@ -72,12 +71,12 @@ fun DoorManagement(navController: NavController) {
                 )
                 Switch(
                     checked = checked,
-                    checkedThumbColor = Color.White,
+                    checkedThumbColor = MaterialTheme.colorScheme.surface,
                     checkedTrackColor = PrimaryBlue,
-                    checkedBorderColor = Color.White,
-                    uncheckedThumbColor = Color.White,
+                    checkedBorderColor = MaterialTheme.colorScheme.surface,
+                    uncheckedThumbColor = MaterialTheme.colorScheme.surface,
                     uncheckedTrackColor = PrimaryBlue,
-                    uncheckedBorderColor = Color.White
+                    uncheckedBorderColor = MaterialTheme.colorScheme.surface
                 )
             }
             Row(
@@ -92,9 +91,9 @@ fun DoorManagement(navController: NavController) {
                         end = 30.dp
                     )
             ) {
-                OutlinedTextFieldCommom(
+                OutlinedTextFieldTranca(
                     "Redefinir a senha da tranca",
-                    type = "textlasttextfield",
+                    type = "numberlasttextfield",
                     initialValue = alterarSenhaTranca.value,
                     onValueChange = { alterarSenhaTranca.value = it }
                 )

@@ -110,6 +110,7 @@ fun Profile(
                 )
             }
             CardSettings(
+                navController = navController,
                 viewModel = viewModel,
                 onChangePasswordClick = { showChangePasswordDialog = true } 
             )
@@ -204,6 +205,7 @@ fun ButtonChangeTheme(onToggleTheme: () -> Unit) {
 
 @Composable
 fun CardSettings(
+    navController: NavController,
     viewModel: AuthViewModel,
     onChangePasswordClick: () -> Unit
 ) {
@@ -230,7 +232,7 @@ fun CardSettings(
                         icon = R.drawable.ic_account_password
                     )
                     SettingsProfile(
-                        onClick = { /* Todo("Fazer ação para editar senha da tranca") */ },
+                        onClick = { navController.navigate(Routes.DoorManagement) },
                         text = "Alterar senha da tranca",
                         textColor = PrimaryBlue,
                         icon = R.drawable.ic_keypad
