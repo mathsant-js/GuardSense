@@ -1,15 +1,14 @@
 Write-Host "=============================="
-Write-Host " GuardSense – Setup de Keystore (Windows)"
+Write-Host " GuardSense - Setup de Keystore (Windows)"
 Write-Host "=============================="
 
-# Diretório onde vamos salvar a keystore
 $KeystoreDir = "$env:LOCALAPPDATA\guardsense\keystore"
-$KeystoreName = "guardsense-release.keystore"
+$KeystoreName = "release.jks"
 $KeystorePath = "$KeystoreDir\$KeystoreName"
 
 $PropertiesFile = ".\app\keystore.properties"
 
-Write-Host "-> Criando diretório seguro..."
+Write-Host "-> Criando diretório..."
 New-Item -ItemType Directory -Force -Path $KeystoreDir | Out-Null
 
 Write-Host "-> Copiando keystore..."
@@ -19,7 +18,8 @@ Write-Host "-> Solicitando senhas..."
 $StorePassword = Read-Host "Digite a storePassword"
 $KeyPassword = Read-Host "Digite a keyPassword"
 $KeyAlias = Read-Host "Digite o keyAlias (padrão: release)"
-if ([string]::IsNullOrEmpty($KeyAlias)) {
+
+if ([string]::IsNullOrWhiteSpace($KeyAlias)) {
     $KeyAlias = "release"
 }
 
@@ -32,9 +32,7 @@ keyPassword=$KeyPassword
 "@ | Out-File $PropertiesFile -Encoding UTF8
 
 Write-Host "=============================="
-Write-Host " Setup concluído com sucesso!"
+Write-Host " Setup concluído!"
 Write-Host " Keystore instalada em:"
 Write-Host "   $KeystorePath"
-Write-Host " keystore.properties criado!"
 Write-Host "=============================="
-
