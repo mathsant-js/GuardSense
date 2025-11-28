@@ -55,6 +55,9 @@ fun Profile(
     viewModel: AuthViewModel,
     onToggleTheme: () -> Unit
 ) {
+    val user = (viewModel.uiState as? com.example.guardsense.viewmodel.AuthState.Success)?.user
+    var name by remember { mutableStateOf(user?.name ?: "") }
+
     var showChangePasswordDialog by remember { mutableStateOf(false) }
     var showUpdateInfoDialog by remember { mutableStateOf(false) }
 
@@ -86,7 +89,7 @@ fun Profile(
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                CardProfile()
+                CardProfile(name)
             }
             ButtonChangeTheme(onToggleTheme)
             Column(Modifier.padding(top = 20.dp, bottom = 0.dp, start = 8.dp, end = 8.dp)) {
@@ -128,7 +131,7 @@ fun Profile(
 }
 
 @Composable
-fun CardProfile() {
+fun CardProfile(name: String) {
     Card(
         shape = RoundedCornerShape(20.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
@@ -163,7 +166,7 @@ fun CardProfile() {
                 modifier = Modifier.padding(horizontal = 10.dp)
             ) {
                 Text(
-                    text = "Nome da Pessoa",
+                    text = name,
                     fontFamily = ralewayFont,
                     fontSize = 22.sp,
                     color = PrimaryBlue,
