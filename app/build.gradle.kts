@@ -90,7 +90,7 @@ dependencies {
     implementation ("androidx.compose.runtime:runtime-saveable")
 
     // Vídeo da Câmera
-    implementation("com.github.niqdev:mjpeg-view:1.7.1")
+    implementation("com.github.niqdev:ipcam-view:2.4.1")
 
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.auth)

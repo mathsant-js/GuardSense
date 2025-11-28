@@ -23,10 +23,13 @@ import com.example.guardsense.ui.BackgroundContainer
 import com.example.guardsense.ui.components.BirthDateTextField
 import com.example.guardsense.ui.components.Logo
 import com.example.guardsense.ui.components.OutlinedTextFieldCommom
+import com.example.guardsense.ui.components.OutlinedTextFieldMasked
 import com.example.guardsense.ui.components.navigation.ExtendedFloatingActionButtonCommon
 import com.example.guardsense.ui.components.navigation.ExtendedFloatingActionButtonIconRight
 import com.example.guardsense.ui.navigation.Routes
 import com.example.guardsense.ui.theme.PrimaryBlue
+import com.example.guardsense.ui.visualtransformations.CpfVisualTransformation
+import com.example.guardsense.ui.visualtransformations.TelephoneVisualTransformation
 import com.example.guardsense.viewmodel.AuthViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -57,16 +60,18 @@ fun Register1(navController: NavController, viewModel: AuthViewModel) {
                 "Nome", type = "text", name.value, { name.value = it }
             )
 
-            OutlinedTextFieldCommom(
-                "CPF", type = "number", cpf.value, { cpf.value = it }
+            OutlinedTextFieldMasked(
+                "CPF", type = "number", cpf.value, { cpf.value = it },
+                visualTransformation = CpfVisualTransformation()
             )
 
             OutlinedTextFieldCommom(
                 "Endereço", type = "text", endereco.value, { endereco.value = it }
             )
 
-            OutlinedTextFieldCommom(
-                "Telefone", type = "numberlasttextfield",  telefone.value, { telefone.value = it }
+            OutlinedTextFieldMasked(
+                "Telefone", type = "numberlasttextfield",  telefone.value, { telefone.value = it },
+                visualTransformation = TelephoneVisualTransformation()
             )
 
             BirthDateTextField(
@@ -98,9 +103,9 @@ fun Register1(navController: NavController, viewModel: AuthViewModel) {
                     onClick = {
                         if (validDate != null) {
                             viewModel.updateName(name.value)
-                            viewModel.updateCPF(cpf.value)
+                            viewModel.updateCPF(cpf.value.filter { it.isDigit() })
                             viewModel.updateAddress(endereco.value)
-                            viewModel.updateTelephone(telefone.value)
+                            viewModel.updateTelephone(telefone.value.filter { it.isDigit() })
                             validDate?.let {
                                 val formattedDate = it.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
                                 viewModel.updateBirthDate(formattedDate)
