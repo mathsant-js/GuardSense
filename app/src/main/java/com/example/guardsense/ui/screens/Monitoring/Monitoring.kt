@@ -85,6 +85,11 @@ fun Monitoring(navController: NavController) {
 @Composable
 fun CameraFeedCard() {
     val cameraOptions = listOf("Câmera 8: *Lorem ipsum*", "Câmera 1: Sala", "Câmera 2: Cozinha")
+    val cameraUrls = mapOf(
+        cameraOptions[0] to "urlDaCamera", // -> Coloca a URL da câmera nessa String
+        cameraOptions[1] to "urlDaCamera",
+        cameraOptions[2] to "urlDaCamera"
+    )
     var expanded by remember { mutableStateOf(false) }
     var selectedCamera by remember { mutableStateOf(cameraOptions[0]) }
 
@@ -138,9 +143,21 @@ fun CameraFeedCard() {
                     .fillMaxWidth()
                     .height(200.dp)
                     .background(Color.LightGray),
-                contentAlignment = Alignment.BottomEnd
+                contentAlignment = Alignment.Center
             ) {
+                val url = cameraUrls[selectedCamera] ?: ""
+
+                CameraScreen(
+                    cameraUrl = url,
+                    modifier = Modifier.fillMaxSize()
+                )
+
                 // icone placeholder
+                /*
+
+                Comentei o ícone, porque poderia bugar a câmera, Depois ajeitar para ficar no canto
+                inferior direito em cima da câmera
+
                 Icon(
                     painter = painterResource(id = R.drawable.ic_logo_mini),
                     contentDescription = "Refresh",
@@ -149,6 +166,7 @@ fun CameraFeedCard() {
                         .padding(12.dp)
                         .size(24.dp)
                 )
+                 */
             }
         }
     }

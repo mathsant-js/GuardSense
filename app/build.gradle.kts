@@ -88,6 +88,10 @@ dependencies {
 
     // Necessário para salvar estado
     implementation ("androidx.compose.runtime:runtime-saveable")
+
+    // Vídeo da Câmera
+    implementation("com.github.niqdev:mjpeg-view:1.7.1")
+
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.auth)
     implementation(libs.androidx.credentials)
