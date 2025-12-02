@@ -32,26 +32,17 @@ android {
 
     signingConfigs {
         create("release") {
-            storeFile = rootProject.file(keystoreProps["storeFile"] as String)
-            storePassword = keystoreProps["storePassword"] as String
-            keyAlias = keystoreProps["keyAlias"] as String
-            keyPassword = keystoreProps["keyPassword"] as String
+            storeFile = file("app/src/keystore.jks")
+            storePassword = " guaRdsense@2025!"
+            keyAlias = "release"
+            keyPassword = "guaRdsense@2025!"
         }
     }
 
     buildTypes {
-        debug {
-            signingConfig = signingConfigs.getByName("debug")
-        }
-
         release {
             isMinifyEnabled = false
-            if (signingConfigs.findByName("release") != null) {
-                signingConfig = signingConfigs.getByName("release")
-            } else {
-                println("⚠ Nenhum keystore de release encontrado. O build RELEASE não poderá ser assinado.")
-            }
-
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -88,10 +79,6 @@ dependencies {
 
     // Necessário para salvar estado
     implementation ("androidx.compose.runtime:runtime-saveable")
-
-    // Vídeo da Câmera
-    implementation("com.github.niqdev:ipcam-view:2.4.1")
-
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.auth)
     implementation(libs.androidx.credentials)

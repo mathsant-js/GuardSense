@@ -1,40 +1,8 @@
-// TCC Etec ZL - 3º Novotec Desenvolvimento de Sistemas Manhã - Henrique Macedo, Lucas Rosa, Matheus Santana
-// código padrão do arduino IDE(CameraWebServer) com alterações para outras funções
+// TCC Etec ZL - 3º Novotec Desenvolvimento de Sistemas Manhã - Henrique Macedo, Lucas Rosa, Matheus Santana, Pedro da Silva
+// código padrão do arduino IDE
 
 #include "esp_camera.h"
-#include <esp_heap_caps.h>
 #include <WiFi.h>
-#include <HTTPClient.h>
-#include <WiFiClientSecure.h>
-#include <ArduinoJson.h>
-
-// definições do Firebase
-#define API_KEY "chaveapi"
-#define USER_EMAIL "email"
-#define USER_PASSWORD "senha"
-#define FIREBASE_PROJECT_ID "idprojeto"
-
-const char* FIREBASE_URL = "firestore.googleapis.com"; 
-
-// caminhos do firestore
-const char* FIRESTORE_DOCUMENT_PATH_STATE = "Sensors/testsensors/sensorstate/testsensor";
-const char* FIRESTORE_DOCUMENT_PATH_READINGS = "Sensors/testsensors";
-
-// cliente para requisições https
-WiFiClientSecure client; 
-
-// variáveis de estado dos sensores
-bool enableGas = false;
-bool enablePres = false;
-bool enableTemp = false;
-bool enableWater = false;
-
-// pinos para comunicação com arduino
-#define RX_PIN 12
-#define TX_PIN 15
-
-unsigned long lastSensorTime = 0;
-const long sensorInterval = 5000;
 
 //
 // WARNING!!! PSRAM IC required for UXGA resolution and high JPEG quality
@@ -54,8 +22,8 @@ const long sensorInterval = 5000;
 
 #include "camera_pins.h"
 
-const char* ssid = "nomewifi";
-const char* password = "senhawifi";
+const char* ssid = "wifi";
+const char* password = "senha";
 
 void startCameraServer();
 
@@ -64,10 +32,6 @@ void setup() {
   Serial.setDebugOutput(true);
   Serial.println();
 
-  // serial para comunicação com o arduino
-  Serial2.begin(115200, SERIAL_8N1, RX_PIN, TX_PIN);
-
-  // configurações padrão da câmera
   camera_config_t config;
   config.ledc_channel = LEDC_CHANNEL_0;
   config.ledc_timer = LEDC_TIMER_0;
@@ -138,9 +102,6 @@ void setup() {
   Serial.println("");
   Serial.println("WiFi connected");
 
-  client.setInsecure();
-  Serial.println("HTTPS/SSL configurado como inseguro.");
-
   startCameraServer();
 
   Serial.print("Camera Ready! Use 'http://");
@@ -149,216 +110,6 @@ void setup() {
 }
 
 void loop() {
-  if (millis() - lastSensorTime > sensorInterval) {
-    lastSensorTime = millis();
-
-    rotinaSensores();
-  }
-  
-  delay(10);
-}
-
-// variáveis para salvar os dados obtidos pelos sensores
-int gasReading = 0;
-bool presenceReading = false;
-double temperatureReading = 0.0;
-double airHumidityReading = 0.0;
-int waterLevelReading = 0;
-
-// leiturs das configurações do firestore
-bool readFirestoreConfig() {
-    Serial.println("Lendo configurações");
-
-    // url para requisição
-    String url = "https://" + String(FIREBASE_URL) + "/v1/projects/" + String(FIREBASE_PROJECT_ID) +
-                 "/databases/(default)/documents/" + String(FIRESTORE_DOCUMENT_PATH_STATE) + 
-                 "?key=" + String(API_KEY);
-    
-    // adição dos campos que devem ser lidos
-    url += "&mask.fieldPaths=gasSensorEnabled&mask.fieldPaths=presenceSensorEnabled&mask.fieldPaths=tempHumiditySensorEnabled&mask.fieldPaths=waterSensorEnabled";
-
-    client.setInsecure();
-
-    HTTPClient http;
-    http.begin(client, url);
-    http.addHeader("Content-Type", "application/json");
-
-    // envia a requisição
-    int httpCode = http.GET();
-
-    if (httpCode > 0) {
-        if (httpCode == HTTP_CODE_OK) {
-            
-            // obtêm o resultado
-            String payload = http.getString();
-            
-            // json dinâmico para salvar os dados
-            DynamicJsonDocument doc(4096);
-
-            // variável para possíveis erros
-            DeserializationError error = deserializeJson(doc, payload);
-
-            if (error) {
-                Serial.print("Falha no parsing JSON: ");
-                Serial.println(error.c_str());
-                http.end();
-                return false;
-            }
-
-            // atribuição dos valores das leituras às variáveis
-            enableGas   = doc["fields"]["gasSensorEnabled"]["booleanValue"] | false;
-            enablePres  = doc["fields"]["presenceSensorEnabled"]["booleanValue"] | false;
-            enableTemp  = doc["fields"]["tempHumiditySensorEnabled"]["booleanValue"] | false;
-            enableWater = doc["fields"]["waterSensorEnabled"]["booleanValue"] | false;
-            
-            Serial.println("configurações lidas com sucesso");
-
-        } else {
-            Serial.printf("Erro HTTP (GET): %d - %s\n", httpCode, http.errorToString(httpCode).c_str());
-        }
-    } else {
-        Serial.printf("Falha de conexão HTTP (GET): %s\n", http.errorToString(httpCode).c_str());
-    }
-
-    // finaliza e retorna sucesso
-    http.end();
-    return httpCode == HTTP_CODE_OK;
-}
-
-// função para atualizar os dados de campos
-int doSinglePatch(const String& payload, const String& maskFields) {
-    // url da página
-    String url = "https://" + String(FIREBASE_URL) + "/v1/projects/" + String(FIREBASE_PROJECT_ID) +
-                 "/databases/(default)/documents/" + String(FIRESTORE_DOCUMENT_PATH_READINGS) + 
-                 "?updateMask.fieldPaths=" + maskFields +
-                 "&key=" + String(API_KEY);
-                 
-    // definição de dados do http
-    HTTPClient http;
-    http.begin(client, url);
-    http.addHeader("Content-Type", "application/json");
-
-    Serial.printf("Enviando atualização patch para campos: %s\n", maskFields.c_str());
-    Serial.print("Payload: "); Serial.println(payload);
-
-    // envio da requisição de atualização
-    int httpCode = http.PATCH(payload);
-
-    if (httpCode > 0) {
-        if (httpCode == HTTP_CODE_OK) { // 200
-            Serial.printf("Atualização patch bem-sucedida. HTTP Code: %d\n", httpCode);
-        } else {
-            Serial.printf("Erro na atualização patch. Code: %d - Motivo: %s\n", httpCode, http.errorToString(httpCode).c_str());
-        }
-    } else {
-        Serial.printf("Falha de conexão. Code: %d - Motivo: %s\n", httpCode, http.errorToString(httpCode).c_str());
-    }
-
-    // finaliza e retorna o resultado
-    http.end();
-    return httpCode;
-}
-
-// função para o patch geral dos valores
-bool patchSensorData(int gas, int presence, int temp, int water) {
-    Serial.println("Iniciando últiplos patches");
-    bool allSuccess = true;
-
-    // converte a presença para boolean
-    bool isPresent = (presence > 0); 
-    
-    // envia apenas a presença
-    StaticJsonDocument<128> doc1; 
-    doc1["fields"]["presenceReading"]["booleanValue"] = isPresent;
-    String payload1;
-    serializeJson(doc1, payload1);
-    
-    if (doSinglePatch(payload1, "presenceReading") != HTTP_CODE_OK) {
-        allSuccess = false;
-    }
-    
-    // valores inteiros
-    StaticJsonDocument<256> doc2; 
-
-    doc2["fields"]["gasReading"]["integerValue"] = (long)gas;
-    doc2["fields"]["temperatureReading"]["integerValue"] = (long)temp;
-    doc2["fields"]["waterLevelReading"]["integerValue"] = (long)water;
-    
-    String payload2;
-    serializeJson(doc2, payload2);
-    
-    String maskFields2 = "gasReading,temperatureReading,waterLevelReading"; 
-
-    if (doSinglePatch(payload2, maskFields2) != HTTP_CODE_OK) {
-        allSuccess = false;
-    }
-
-    if (allSuccess) {
-        Serial.println("Todos os dados atualizados com sucesso");
-    } else {
-        Serial.println("Aviso: uma ou mais atualizações falharam");
-    }
-
-    return allSuccess;
-}
-
-void rotinaSensores() {
-    // ler configurações
-    if (!readFirestoreConfig()) {
-        Serial.println("Falha ao ler configurações");
-    }
-    
-    // envio dos dados dos sensores para o arduino
-    String pacote = "<" + String(enableGas) + "," + String(enablePres) + "," + String(enableTemp) + "," + String(enableWater) + ">";
-    Serial2.println(pacote);
-    Serial.print("Enviado para Arduino: "); Serial.println(pacote);
-
-    // receber leituras do arduino
-    String response = "";
-    long startTime = millis();
-    bool dataReceived = false;
-
-    // aguardar a resposta por 5 segundos
-    while ((millis() - startTime) < 5000) {
-        if (Serial2.available()) {
-            response = Serial2.readStringUntil('\n');
-            response.trim();
-            if (response.length() > 0) {
-                dataReceived = true;
-                break;
-            }
-        }
-    }
-
-    // variáveis de leitura
-    int gasReading = 0;
-    int presenceReading = 0;
-    int tempReading = 0;
-    int waterReading = 0;
-
-    if (dataReceived) {
-        Serial.print("Recebido do arduino: "); Serial.println(response);
-        
-        // Divide a string e converte para int/float
-        char data[response.length() + 1];
-        response.toCharArray(data, response.length() + 1);
-
-        char *token;
-        token = strtok(data, ",");
-        if (token != NULL) gasReading = atoi(token);
-
-        token = strtok(NULL, ",");
-        if (token != NULL) presenceReading = atoi(token);
-
-        token = strtok(NULL, ",");
-        if (token != NULL) tempReading = atoi(token);
-
-        token = strtok(NULL, ",");
-        if (token != NULL) waterReading = atoi(token);
-    } else {
-        Serial.println("Erro: não houve resposta Serial completa do Arduino. Usando 0s.");
-    }
-
-    // envio do patch com os valores formatados/convertidos
-    patchSensorData(gasReading, presenceReading, tempReading, waterReading);
+  // put your main code here, to run repeatedly:
+  delay(10000);
 }

@@ -1,4 +1,4 @@
-// TCC Etec ZL - 3º Novotec Desenvolvimento de Sistemas Manhã - Henrique Macedo, Lucas Rosa, Matheus Santana
+// TCC Etec ZL - 3º Novotec Desenvolvimento de Sistemas Manhã - Henrique Macedo, Lucas Rosa, Matheus Santana,  Pedro da Silva
 
 // incluindo as bibliotecas necessárias
 #include <LiquidCrystal_I2C.h>
